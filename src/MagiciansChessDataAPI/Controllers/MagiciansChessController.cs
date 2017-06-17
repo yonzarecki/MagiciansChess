@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Security.Claims;
-using System.IdentityModel.Tokens;
+
 using System.Diagnostics;
 using MagiciansChessDataAPI.Models;
 using System.Configuration;
@@ -23,8 +23,6 @@ namespace MagiciansChessDataAPI.Controllers
 
         static LeaderboardEntryController()
         {
-            mockData.Add(0, new LeaderboardEntry { ID = 0, Owner = "*", Description = "feed the dog" });
-            mockData.Add(1, new LeaderboardEntry { ID = 1, Owner = "*", Description = "take the dog on a walk" });
         }
 
         private static void CheckCallerId()

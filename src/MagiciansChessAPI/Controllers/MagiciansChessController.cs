@@ -40,7 +40,7 @@ namespace MagiciansChessDataAPI.Controllers
 
         private static MagiciansChessAPI.MagiciansChessDataAPI NewDataAPIClient()
         {
-            var client = new MagiciansChessAPI.MagiciansChessDataAPI(new Uri(ConfigurationManager.AppSettings["toDoListDataAPIURL"]));
+            var client = new MagiciansChessAPI.MagiciansChessDataAPI(new Uri(ConfigurationManager.AppSettings["MagiciansChessDataAPIURL"]));
             // Uncomment following line and entire ServicePrincipal.cs file for service principal authentication of calls to ToDoListDataAPI
             //client.HttpClient.DefaultRequestHeaders.Authorization =
             //    new AuthenticationHeaderValue("Bearer", ServicePrincipal.GetS2SAccessTokenForProdMSA().AccessToken);

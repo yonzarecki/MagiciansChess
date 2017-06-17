@@ -2,7 +2,7 @@
 // Changes may cause incorrect behavior and will be lost if the code is
 // regenerated.
 
-namespace MagiciansChessAPI.Models
+namespace MagiciansChessApp.Models
 {
     using System;
     using System.Linq;
@@ -21,9 +21,9 @@ namespace MagiciansChessAPI.Models
         /// <summary>
         /// Initializes a new instance of the LeaderboardEntry class.
         /// </summary>
-        public LeaderboardEntry(int? id = default(int?), string description = default(string), int? type = default(int?), string owner = default(string))
+        public LeaderboardEntry(string id = default(string), string description = default(string), string type = default(string), string owner = default(string))
         {
-            this.ID = id;
+            ID = id;
             Description = description;
             Type = type;
             Owner = owner;
@@ -32,7 +32,7 @@ namespace MagiciansChessAPI.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "ID")]
-        public int? ID { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// </summary>
@@ -42,7 +42,7 @@ namespace MagiciansChessAPI.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "Type")]
-        public int? Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// </summary>

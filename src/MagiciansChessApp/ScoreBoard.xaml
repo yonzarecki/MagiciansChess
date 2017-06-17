@@ -1,0 +1,146 @@
+﻿<Page
+    x:Class="HockeyApp.ScoreBoard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HockeyApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" FontSize="32" Foreground="White">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock" x:Key="ListItemHeaderStyle">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ListItemTextStyle">
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="14*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="UpperPadding" Grid.Row="0" />
+            <TextBlock x:Name="lowerPadding" Grid.Row="3" />
+            <Image x:Name="logo" Grid.Row="1" Source="Assets/Mainlogo.jpg" HorizontalAlignment="Stretch"
+                   Margin="5,0,0,0" />
+            <Grid Grid.Row="2" Margin="0,30,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="tb_ScoreBoardHeadline" FontFamily="Assets/QuirkyRobot.ttf#QuirkyRobot"
+                           Height="40" Text="Score Board"
+                           Foreground="#FFCD2323" FontWeight="Bold" HorizontalAlignment="Center" FontSize="50.667" />
+
+                <StackPanel x:Name="stkPnl_options" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btn_ByTime" Style="{StaticResource RedButton}" Foreground="#FF118AC3" Content="By Time" Height="40"
+                            FontSize="20"  Padding="8,8,8,0" Margin="5,0" Click="btn_changeBy_Click" />
+                    <Button x:Name="btn_ByScore" Style="{StaticResource RedButton}" Foreground="#FF118AC3" Content="By Score" Height="40" Click="btn_changeBy_Click"
+                            FontSize="20"  Padding="8,8,8,0" Margin="5,0" />
+                </StackPanel>
+                <Border Grid.Row="2" Grid.RowSpan="2">
+                    <Grid Height="300">
+                        <ProgressRing x:Name="ProgressRing1" Width="60" Height="60" IsActive="{Binding IsPending}"/>
+                        <StackPanel>
+                            <!-- Style="{StaticResource PanelStyle1}" Width="400-->
+                            <ScrollViewer x:Name="ByTimeListView" Height="250"  VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
+                                <ListView ItemsSource="{Binding TimeLimitedGames}"  SelectionMode="None">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
+                                    <ListView.Header>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" Text="Rank" Style="{StaticResource ListItemHeaderStyle}"/>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Name" Style="{StaticResource ListItemHeaderStyle}"/>
+                                            <TextBlock Grid.Column="2" Style="{StaticResource ListItemHeaderStyle}">Player<LineBreak/>Score</TextBlock>
+                                            <TextBlock Grid.Column="3" Style="{StaticResource ListItemHeaderStyle}">Robot<LineBreak/>Score</TextBlock>
+
+                                        </Grid>
+                                    </ListView.Header>
+
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="3*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Path=Rank}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Name}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=PlayerScore}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=RobotScore}" Foreground="White" Grid.Column="3" Style="{StaticResource ListItemTextStyle}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+
+                            <ScrollViewer x:Name="ByScoreListView" Height="250"  VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
+                                <ListView ItemsSource="{Binding ScoreLimitedGames}" SelectionMode="None">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
+                                    <ListView.Header>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="Rank" Style="{StaticResource ListItemHeaderStyle}"/>
+                                            <TextBlock Grid.Column="1" Text="Player" Style="{StaticResource ListItemHeaderStyle}"/>
+                                            <TextBlock Grid.Column="2" Text="Duration" Style="{StaticResource ListItemHeaderStyle}"/>
+                                        </Grid>
+                                    </ListView.Header>
+
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="3*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Path=Rank}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Name}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Duration}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
+                            <Button Content="Refresh" x:Name="RefreshRankings"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
