@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
-namespace HockeyApp
+namespace MagiciansChesApp
 {
     using ViewModel;
     public class Session

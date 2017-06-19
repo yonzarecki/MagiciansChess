@@ -1,4 +1,4 @@
-﻿namespace HockeyApp.Models
+﻿namespace MagiciansChesApp.Models
 {
     public class TimeLimitedGame : Game
     {

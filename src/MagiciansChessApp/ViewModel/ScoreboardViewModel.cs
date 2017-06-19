@@ -1,11 +1,11 @@
-﻿using HockeyApp.Models;
+﻿using MagiciansChesApp.Models;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace HockeyApp.ViewModel
+namespace MagiciansChesApp.ViewModel
 {
     public class ScoreboardViewModel : INotifyPropertyChanged
     {

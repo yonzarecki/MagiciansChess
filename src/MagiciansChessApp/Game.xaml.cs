@@ -25,7 +25,7 @@ using Windows.System.Display;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace HockeyApp
+namespace MagiciansChesApp
 {
     
     /// <summary>

@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="HockeyApp.Game"
+    x:Class="MagiciansChesApp.Game"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HockeyApp"
+    xmlns:local="using:MagiciansChesApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -56,10 +56,10 @@
                                FontSize="48" TextAlignment="Center" Margin="5" Grid.RowSpan="2">
                         <Run FontSize="40" Text="Robot" />
                     </TextBlock>
-                    <TextBlock x:Name="tb_UserScore" Grid.Row="1" Grid.Column="0" Text="6" Width="145"
+                    <TextBlock x:Name="tb_UserScore" Grid.Row="1" Grid.Column="0" Text="0" Width="145"
                                Foreground="#FF1F00E4" FontSize="96" FontFamily="Assets/digital-7.ttf#Digital-7"
                                TextAlignment="Center" />
-                    <TextBlock x:Name="tb_RobotScore" Grid.Row="1" Grid.Column="1" Text="9" Width="145"
+                    <TextBlock x:Name="tb_RobotScore" Grid.Row="1" Grid.Column="1" Text="1" Width="145"
                                Foreground="#FF1F00E4" FontSize="96" FontFamily="Assets/digital-7.ttf#Digital-7"
                                TextAlignment="Center" />
                     <TextBlock x:Name="tb_player" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Width="145"
