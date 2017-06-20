@@ -141,7 +141,6 @@
       <DependentUpon>StartGamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Compile Include="ViewModel\ScoreboardViewModel.cs" />
     <Compile Include="VolumeControl.xaml.cs">
       <DependentUpon>VolumeControl.xaml</DependentUpon>
     </Compile>

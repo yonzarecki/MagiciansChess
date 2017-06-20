@@ -142,7 +142,7 @@ namespace MagiciansChessApp
             Server.Dispose();
             Frame.Navigate(typeof(ScoreBoard), Params);
         }
-        private void stopGame(bool navigation)
+        private void stopGame(bool navigation)  // TODO: change to our game
         {
             Timer.Stop();
             Server.SendToServer(Server.Command.TERMINATE,Frame);
@@ -151,15 +151,8 @@ namespace MagiciansChessApp
             {
                 int playerScore = int.Parse(tb_UserScore.Text);
                 int robotScore = int.Parse(tb_RobotScore.Text);
-                if (Params.ByTime)
-                {
-                    Utils.viewModel.AddTimeLimitedGameAsync(Params.PlayerName, DateTime.Now,playerScore,robotScore);
-                }
 
-                if (Params.ByScore)
-                {
-                    Utils.viewModel.AddScoreLimitedGameAsync(Params.PlayerName, DateTime.Now, TimeSpaner);
-                }
+                Utils.AddTimeLimitedGameAsync(Params.PlayerName, DateTime.Now,playerScore,robotScore);
 
                 MessageDialog msgDialog = new MessageDialog("Game is Over !");
                 UICommand OK = new UICommand("OK");

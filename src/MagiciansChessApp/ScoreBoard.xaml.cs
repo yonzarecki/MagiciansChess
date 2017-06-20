@@ -1,10 +1,9 @@
-﻿using MagiciansChessApp.ViewModel;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,26 +24,29 @@ namespace MagiciansChessApp
     public sealed partial class ScoreBoard : Page
     {
         private Session Params { get; set; }
-        ScoreboardViewModel viewModel = new ScoreboardViewModel(App.MobileService);
 
         public ScoreBoard()
         {
-            viewModel.PropertyChanged += ShowTable;
             this.InitializeComponent();
-            this.DataContext = viewModel;
         }
+
+
 
         protected override void OnNavigatedTo(NavigationEventArgs args)
         {
             Params = args.Parameter as Session;
 
-            if (Params != null && !viewModel.IsPending)
+            if (Params != null)
             {
-                viewModel.GetAllTimeLimitedGamesAsync();
+                using (var client = Utils.NewAPIClient())
+                {
+                    var t = MagiciansChessExtensions.GetAsync(new MagiciansChess(client));
+                    t.ContinueWith(tsk => this.ShowTable(tsk.Result));
+                }
             }
         }
 
-        private void ShowTable(object sender, PropertyChangedEventArgs e)
+        private void ShowTable(IList<Models.LeaderboardEntry> table_entries)
         {
             ByScoreListView.Visibility = Visibility.Visible;
         }

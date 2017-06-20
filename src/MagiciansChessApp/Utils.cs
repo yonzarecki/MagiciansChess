@@ -12,7 +12,6 @@ using Windows.Networking;
 using Windows.Networking.Connectivity;
 namespace MagiciansChessApp
 {
-    using ViewModel;
     public class Session
     {
         public Session(bool byScore, string playerName)
@@ -38,6 +37,9 @@ namespace MagiciansChessApp
         public string PlayerName { get; set; }
     }
 
+    /*
+     * Server for accessing the board through the WiFi module.
+     */ 
     public class Server
     {
         public enum Command
@@ -199,7 +201,21 @@ namespace MagiciansChessApp
                 rootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
-        public static ScoreboardViewModel viewModel = null;// new ScoreboardViewModel(App.MobileService);
+        public static async Task<int> AddTimeLimitedGameAsync(string name, DateTime date, int playerScore, int robotScore)
+        {
+            // TODO change
+            var a = 5*5;
+            return a;
+        }
+
+        public static MagiciansChessAPI NewAPIClient()
+        {
+            var client = new MagiciansChessAPI(new Uri(App.apiUrl));
+            // Uncomment following line and entire ServicePrincipal.cs file for service principal authentication of calls to ToDoListDataAPI
+            //client.HttpClient.DefaultRequestHeaders.Authorization =
+            //    new AuthenticationHeaderValue("Bearer", ServicePrincipal.GetS2SAccessTokenForProdMSA().AccessToken);
+            return client;
+        }
 
     }
 }

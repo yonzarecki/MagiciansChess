@@ -64,7 +64,7 @@
 
                 <local:VolumeControl  VerticalAlignment="Bottom" x:Name="vc" Grid.Column="0" />
 
-                <Button x:Name="btn_Settings" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btn_Settings_Click" Visibility="Collapsed" >
+                <Button x:Name="btn_Settings" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btn_Settings_Click" Visibility="Visible" >
                     <Button.Template>
                         <ControlTemplate>
                             <Image x:Name="Source" Source="Assets/settings_icon.png" Height="25" Width="25" />

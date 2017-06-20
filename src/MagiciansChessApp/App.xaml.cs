@@ -19,7 +19,9 @@ namespace MagiciansChessApp
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
 
-        const string serviceUrl = "https://hockeyservice.azure-mobile.net/";
+        public const string apiUrl = "https://magicianschessapi.azurewebsites.net";
+        // TODO remove
+        const string serviceUrl = "https://magicianschessapi.azurewebsites.net";
         //const string serviceUrl = "http://localhost:6588/";
         const string appKey = "aJSRpYAfMyaGVWJxSPTIlDSjDMhWWo29";
         public static MobileServiceClient MobileService = new MobileServiceClient(serviceUrl, appKey);
