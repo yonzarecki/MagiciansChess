@@ -10,6 +10,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
+using System.Collections.ObjectModel;
+
 namespace MagiciansChessApp
 {
     public class Session
@@ -166,7 +168,7 @@ namespace MagiciansChessApp
 
     }
     
-    public class Utils
+    public static class Utils
     {
         private static Windows.UI.Popups.IUICommand msgResponseAsyncOperation { get; set; }
         public static async void Show(MessageDialog msgDialog, List<UICommand> commands, uint defaultCommandIndex = 0,
@@ -215,6 +217,16 @@ namespace MagiciansChessApp
             //client.HttpClient.DefaultRequestHeaders.Authorization =
             //    new AuthenticationHeaderValue("Bearer", ServicePrincipal.GetS2SAccessTokenForProdMSA().AccessToken);
             return client;
+        }
+
+        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
+        {
+            var col = new ObservableCollection<T>();
+            foreach (var cur in enumerable)
+            {
+                col.Add(cur);
+            }
+            return col;
         }
 
     }

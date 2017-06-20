@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="UpperPadding" Grid.Row="0" />
             <TextBlock x:Name="lowerPadding" Grid.Row="3" />
-            <Image x:Name="logo" Grid.Row="1" Source="Assets/Mainlogo.jpg" HorizontalAlignment="Stretch"
+            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo.jpg" HorizontalAlignment="Stretch"
                    Margin="5,0,0,0" />
             <Grid Grid.Row="2" Margin="0,30,0,0">
                 <Grid.RowDefinitions>
@@ -46,8 +46,8 @@
                         <ProgressRing x:Name="ProgressRing1" Width="60" Height="60" IsActive="{Binding IsPending}"/>
                         <StackPanel>
                             <!-- Style="{StaticResource PanelStyle1}" Width="400-->
-                            <ScrollViewer x:Name="ByTimeListView" Height="250"  VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
-                                <ListView ItemsSource="{Binding TimeLimitedGames}"  SelectionMode="None">
+                            <ScrollViewer x:Name="LeaderboardListView" Height="250"  VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
+                                <ListView x:Name="LeaderboardListViewReal" SelectionMode="None">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -80,54 +80,16 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Path=Rank}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=Name}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=PlayerScore}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=RobotScore}" Foreground="White" Grid.Column="3" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Description}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Type}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Owner}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=id}" Foreground="White" Grid.Column="3" Style="{StaticResource ListItemTextStyle}"/>
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
                             </ScrollViewer>
 
-                            <ScrollViewer x:Name="ByScoreListView" Height="250"  VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
-                                <ListView ItemsSource="{Binding ScoreLimitedGames}" SelectionMode="None">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-
-                                    <ListView.Header>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Rank" Style="{StaticResource ListItemHeaderStyle}"/>
-                                            <TextBlock Grid.Column="1" Text="Player" Style="{StaticResource ListItemHeaderStyle}"/>
-                                            <TextBlock Grid.Column="2" Text="Duration" Style="{StaticResource ListItemHeaderStyle}"/>
-                                        </Grid>
-                                    </ListView.Header>
-
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="3*"/>
-                                                    <ColumnDefinition Width="2*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Path=Rank}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=Name}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=Duration}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </ScrollViewer>
                             <Button Content="Refresh" x:Name="RefreshRankings"/>
                         </StackPanel>
                     </Grid>
