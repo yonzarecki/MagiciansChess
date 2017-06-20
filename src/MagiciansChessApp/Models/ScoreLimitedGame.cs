@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MagiciansChesApp.Models
+namespace MagiciansChessApp.Models
 {
     public class ScoreLimitedGame : Game
     {

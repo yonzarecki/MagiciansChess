@@ -1,4 +1,4 @@
-﻿namespace MagiciansChesApp.Models
+﻿namespace MagiciansChessApp.Models
 {
     public class TimeLimitedGame : Game
     {

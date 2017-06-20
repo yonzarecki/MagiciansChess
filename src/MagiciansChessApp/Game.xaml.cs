@@ -25,7 +25,7 @@ using Windows.System.Display;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace MagiciansChesApp
+namespace MagiciansChessApp
 {
     
     /// <summary>
@@ -189,7 +189,7 @@ namespace MagiciansChesApp
             }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e) // 
         {
             Params = e.Parameter as Session;
             this.InitializeComponent();

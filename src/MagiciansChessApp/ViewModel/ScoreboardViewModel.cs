@@ -1,13 +1,13 @@
-﻿using MagiciansChesApp.Models;
+﻿using MagiciansChessApp.Models;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MagiciansChesApp.ViewModel
+namespace MagiciansChessApp.ViewModel
 {
-    public class ScoreboardViewModel : INotifyPropertyChanged
+    public class ScoreboardViewModel : INotifyPropertyChanged 
     {
         MobileServiceClient _client;
 

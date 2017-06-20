@@ -114,9 +114,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BounceTry.xaml.cs">
-      <DependentUpon>BounceTry.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConnectionManager.cs" />
     <Compile Include="Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
@@ -129,9 +126,6 @@
     <Compile Include="MagiciansChessAPI\Models\LeaderboardEntry.cs" />
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MasterPage.xaml.cs">
-      <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\ScoreLimitedGame.cs" />
@@ -186,19 +180,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BounceTry.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Game.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MasterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
