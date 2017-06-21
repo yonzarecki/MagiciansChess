@@ -13,7 +13,8 @@
 
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="wideView">
@@ -35,42 +36,32 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-
-
-
-        <Grid Background="Black">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/Checkers_700.png" Stretch="UniformToFill"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="14*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+
             <TextBlock x:Name="UpperPadding" Grid.Row="0"></TextBlock>
-            <Button x:Name="btn_Playground" Content="PlayGround" Grid.Row="0" Background="Red" Click="btn_Playground_Click" Visibility="Collapsed" />
-            <Image x:Name="Logo" Grid.Row ="1" HorizontalAlignment="Stretch" Source="Assets/MainLogo.jpg" Margin="0,0,0,450" Grid.RowSpan="2"/>
-            <RelativePanel x:Name="rp_options" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="81.475,53.333,75.524,0.25" Height="396.75" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto"  >
-                <RelativePanel.RenderTransform>
-                    <CompositeTransform SkewX="0.855" TranslateX="2.485"/>
-                </RelativePanel.RenderTransform>
-                <Button x:Name="BtnGame" Content="Play Game" Style="{StaticResource RedButton}" Click="BtnGame_OnClick" Margin="10,20,10,20" />
-                <Button x:Name="BtnScoreBoard" Content="Scoreboard" Style="{StaticResource RedButton}"  Click="BtnScoreBoard_OnClick" Margin="10,174.333,10,-155.667" />
-                <Button x:Name="BtnGame_Copy" Content="Test Serv" Style="{StaticResource RedButton}" Click="BtnGame_Copy_Click" Margin="10,159,10,-120.493" Width="191" />
+            <Image x:Name="Logo" Grid.Row ="1"  HorizontalAlignment="Stretch" Source="Assets/MainLogo_transparent3.png" Margin="0,0,0,450" Grid.RowSpan="3"/>
+            <RelativePanel x:Name="rp_options" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,155.333,10,10" Height="390" RenderTransformOrigin="0.5,0.5" Width="340"  >
+                <Button x:Name="BtnGame" Content="Play Game" Style="{StaticResource RedButton}" Click="BtnGame_OnClick" Margin="38,52,-46,-10.333" HorizontalAlignment="Center" />
+                <Button x:Name="BtnScoreBoard" Content="Scoreboard" Style="{StaticResource RedButton}"  Click="BtnScoreBoard_OnClick" Margin="38,82.333,-38,-60" HorizontalAlignment="Center" />
             </RelativePanel>
+            
             <Grid x:Name="grid_footer" Grid.Row="3" Height="45" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="213*" />
+                    <ColumnDefinition Width="36*"/>
+                    <ColumnDefinition Width="71*"/>
                 </Grid.ColumnDefinitions>
 
-                <local:VolumeControl  VerticalAlignment="Bottom" x:Name="vc" Grid.Column="0" />
-
-                <Button x:Name="btn_Settings" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btn_Settings_Click" Visibility="Visible" >
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image x:Name="Source" Source="Assets/settings_icon.png" Height="25" Width="25" />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <local:VolumeControl  VerticalAlignment="Bottom" x:Name="vc" Grid.Column="0" Grid.ColumnSpan="3" />
             </Grid>
         </Grid>
     </Grid>

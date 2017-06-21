@@ -147,9 +147,12 @@ namespace MagiciansChessApp
                 writer = new DataWriter(socket.OutputStream);
                 writer.WriteByte(Convert.ToByte((char)c));
                 await writer.StoreAsync();
-            } catch(Exception ex)
+#pragma warning disable CS0168 // Variable is declared but never used
+            }
+            catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
-                //MessageDialog msgDialog = new MessageDialog("The Connection Has Been Closed.");
+                MessageDialog msgDialog = new MessageDialog("The Connection Has Been Closed.");
                 //UICommand OK = new UICommand("OK");
                 //OK.Invoked += (IUICommand command) =>
                 //{

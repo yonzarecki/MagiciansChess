@@ -50,18 +50,6 @@ namespace MagiciansChessApp
             Utils.EnableNavigateButton();
         }
 
-        private void btn_Settings_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(Settings), vc);
-        }
-
-
-        private void btn_Playground_Click(object sender, RoutedEventArgs e)
-        {
-            //Frame.Navigate(typeof(OnlyBT), null);
-        }
-
-
         private static MagiciansChessAPI NewAPIClient()
         {
             var client = new MagiciansChessAPI(new Uri("https://magicianschessapi.azurewebsites.net"));

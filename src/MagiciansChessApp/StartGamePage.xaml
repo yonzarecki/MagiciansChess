@@ -10,8 +10,11 @@
     Foreground="White"
     FontSize="32">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="Black">
+    <Grid>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/Checkers_700.png" Stretch="UniformToFill"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="auto" />
@@ -20,16 +23,16 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="UpperPadding" Grid.Row="0" Text="" />
             <TextBlock x:Name="lowerPadding" Grid.Row="3" Text="" />
-            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo.jpg" HorizontalAlignment="Stretch" />
+            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo_transparent3.png" HorizontalAlignment="Stretch" />
             <StackPanel x:Name="NamePanel" Grid.Row="2" Margin="0,30,0,0">
 
                 <TextBlock Text="Please enter your full name:" HorizontalAlignment="Center"
-                           FontFamily="Global Monospace" FontSize="18.667" />
+                           FontFamily="Global Monospace" FontSize="20" FontWeight="Bold" Foreground="BurlyWood"/>
                 <StackPanel x:Name="inputPanel" Orientation="Vertical" Margin="0,20,0,20" HorizontalAlignment="Center">
                     <TextBox x:Name="nameInput" Width="280" HorizontalAlignment="Left" Text=""
                              PlaceholderText="Enter Your Name Here." TextChanging="NameInput_OnTextChanging" />
                     <Button x:Name="inputButton" Style="{StaticResource RedButton}" Content="Submit"
-                            Click="ButtonClick" Margin="0,15,0,0"
+                            Click="ButtonClick" FontSize="40" Margin="0,15,0,0"
                             IsEnabled="False" />
                 </StackPanel>
             </StackPanel>

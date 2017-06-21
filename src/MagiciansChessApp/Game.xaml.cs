@@ -22,6 +22,7 @@ using Windows.Storage.Streams;
 using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.System.Display;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -116,7 +117,7 @@ namespace MagiciansChessApp
 
         private void UpdateScore(bool UserScored)
         {
-            int userScore = int.Parse(tb_UserScore.Text);
+            /*int userScore = int.Parse(tb_UserScore.Text);
             int robotScore = int.Parse(tb_RobotScore.Text);
 
             if (UserScored)
@@ -132,7 +133,7 @@ namespace MagiciansChessApp
             if(Params.ByScore && (userScore == SCORE_LIMIT || robotScore == SCORE_LIMIT))
             {
                 stopGame(false);
-            }
+            }*/
         }
 
         private void Popup_OK_Invoked(IUICommand command)
@@ -149,10 +150,11 @@ namespace MagiciansChessApp
 
             if (!navigation)
             {
-                int playerScore = int.Parse(tb_UserScore.Text);
-                int robotScore = int.Parse(tb_RobotScore.Text);
+                // TODO: change comments in all file
+                /*int playerScore = int.Parse(tb_UserScore.Text);
+                int robotScore = int.Parse(tb_RobotScore.Text);*/
 
-                Utils.AddTimeLimitedGameAsync(Params.PlayerName, DateTime.Now,playerScore,robotScore);
+                // Utils.AddTimeLimitedGameAsync(Params.PlayerName, DateTime.Now, playerScore,robotScore);
 
                 MessageDialog msgDialog = new MessageDialog("Game is Over !");
                 UICommand OK = new UICommand("OK");
@@ -172,12 +174,14 @@ namespace MagiciansChessApp
             if (Timer.IsEnabled)
             {
                 stopTimer();
+                PauseButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/play.png", UriKind.Absolute));
                 Server.Paused = true;
             }
 
             else
             {
                 resumeTimer();
+                PauseButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/pause.png", UriKind.Absolute));
                 Server.Paused = false;
             }
         }
@@ -205,18 +209,18 @@ namespace MagiciansChessApp
             tb_Timer.Text = showTime();
             Timer.Start();
 
-            tb_player.Text = Params.PlayerName;
+            /*tb_player.Text = Params.PlayerName;
 
             //reset Score : 
             tb_UserScore.Text = 0.ToString();
-            tb_RobotScore.Text = 0.ToString();
+            tb_RobotScore.Text = 0.ToString();*/
 
             //Connecting to the local Ad-Hock Wifi Server
 
             await Server.ConnectToServer(Frame);
            
-                Server.SendToServer(Server.Command.START, Frame);
-                await Server.listenToPackets();
+            Server.SendToServer(Server.Command.START, Frame);
+            await Server.listenToPackets();
             
             
         }

@@ -18,7 +18,10 @@
         </Style>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="Black">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/Checkers_700.png" Stretch="UniformToFill"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="auto" />
@@ -27,8 +30,7 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="UpperPadding" Grid.Row="0" />
             <TextBlock x:Name="lowerPadding" Grid.Row="3" />
-            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo.jpg" HorizontalAlignment="Stretch"
-                   Margin="5,0,0,0" />
+            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo_transparent3.png" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="2" Margin="0,30,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
@@ -39,7 +41,7 @@
 
                 <TextBlock Grid.Row="0" x:Name="tb_ScoreBoardHeadline" FontFamily="Assets/QuirkyRobot.ttf#QuirkyRobot"
                            Height="40" Text="Score Board"
-                           Foreground="#FFCD2323" FontWeight="Bold" HorizontalAlignment="Center" FontSize="50.667" />
+                           Foreground="BurlyWood" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70" />
 
                 <Border Grid.Row="2" Grid.RowSpan="2">
                     <Grid Height="300">
@@ -47,7 +49,7 @@
                         <StackPanel>
                             <!-- Style="{StaticResource PanelStyle1}" Width="400-->
                             <ScrollViewer x:Name="LeaderboardListView" Height="250"  VerticalScrollBarVisibility="Hidden" Visibility="Collapsed">
-                                <ListView x:Name="LeaderboardListViewReal" SelectionMode="None">
+                                <ListView x:Name="LeaderboardListViewReal"  SelectionMode="None">
                                     <ListView.ItemContainerStyle>
                                         <Style TargetType="ListViewItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

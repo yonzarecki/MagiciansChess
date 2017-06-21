@@ -95,12 +95,23 @@
     </Content>
     <Content Include="Assets\background.png" />
     <Content Include="Assets\bt_icon.png" />
+    <Content Include="Assets\Checkers_700.gif" />
+    <Content Include="Assets\Checkers_700.png" />
+    <Content Include="Assets\LargeTile.scale-100.png" />
+    <Content Include="Assets\LargeTile.scale-125.png" />
+    <Content Include="Assets\LargeTile.scale-150.png" />
+    <Content Include="Assets\LargeTile.scale-200.png" />
+    <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\MainLogo.jpg" />
     <Content Include="Assets\MainLogo2.png" />
     <Content Include="Assets\MainLogoWhite.png" />
+    <Content Include="Assets\MainLogo_transparent.png" />
+    <Content Include="Assets\MainLogo_transparent3.png" />
     <Content Include="Assets\orange juice 2.0.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\pause.png" />
+    <Content Include="Assets\play.png" />
     <Content Include="Assets\pouseButton.png" />
     <Content Include="Assets\puck.png" />
     <Content Include="Assets\QuirkyRobot.ttf">
@@ -134,9 +145,6 @@
     <Compile Include="ScoreBoard.xaml.cs">
       <DependentUpon>ScoreBoard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
-    </Compile>
     <Compile Include="StartGamePage.xaml.cs">
       <DependentUpon>StartGamePage.xaml</DependentUpon>
     </Compile>
@@ -164,7 +172,25 @@
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\StoreLogo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\StoreLogo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\StoreLogo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\StoreLogo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\StoreLogo.altform-unplated_targetsize-48.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\StoreLogo.targetsize-16.png" />
+    <Content Include="Assets\StoreLogo.targetsize-24.png" />
+    <Content Include="Assets\StoreLogo.targetsize-256.png" />
+    <Content Include="Assets\StoreLogo.targetsize-32.png" />
+    <Content Include="Assets\StoreLogo.targetsize-48.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Assets\‏‏‏‏‏‏MainLogo3.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -188,10 +214,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ScoreBoard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,77 +8,42 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="Black">
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="Assets/Checkers_700.png" Stretch="UniformToFill"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
-                <RowDefinition /> 
+                <RowDefinition />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="14*" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock x:Name="Debug" Foreground="Red" HorizontalAlignment="Center" Grid.Row="0" Text="DEBUG" Visibility="Collapsed" />
             <TextBlock x:Name="UpperPadding" Grid.Row="0" Text="" />
             <TextBlock x:Name="lowerPadding" Grid.Row="3" Text="" />
-            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo.jpg" HorizontalAlignment="Stretch"   />
+            <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo_transparent3.png" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
-                
-                <!--<c4FToolkit:TimeSpanPicker   x:Name="timeSpan" Value="0" HorizontalAlignment="Center"/>-->
-                <TextBlock x:Name="tb_Timer" Grid.Row="0"  Text="05:00" Height="auto" Width="auto" Style="{StaticResource  RedTextBlock}" Margin="0,0,0,0">
-                    <TextBlock.Resources>
-                        <Storyboard x:Name="myStoryboard">
-                            <!-- Animate the background color of the canvas from red to green over 4 seconds. -->
-                            <ColorAnimation Storyboard.TargetName="tb_Timer"
-                                Storyboard.TargetProperty="Forground"
-                                From="Red" To="Green" Duration="0:0:4" />
-                        </Storyboard>
-                    </TextBlock.Resources>
 
-                </TextBlock>
-                <Grid Grid.Row="1" Margin="20,0,20,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="27*" />
-                        <RowDefinition Height="73*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Row="0" Grid.Column="0" BorderBrush="Red" BorderThickness="3" />
-                    <Border Grid.Row="0" Grid.Column="1" BorderBrush="Red" BorderThickness="3" />
-                    <Border Grid.Row="1" Grid.Column="0" BorderBrush="Red" BorderThickness="3" />
-                    <Border Grid.Row="1" Grid.Column="1" BorderBrush="Red" BorderThickness="3" />
-                    <TextBlock x:Name="Robot" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Width="145"
-                               Foreground="#FF1F00E4" FontFamily="Assets/QuirkyRobot.ttf#QuirkyRobot"
-                               FontSize="48" TextAlignment="Center" Margin="5" Grid.RowSpan="2">
-                        <Run FontSize="40" Text="Robot" />
-                    </TextBlock>
-                    <TextBlock x:Name="tb_UserScore" Grid.Row="1" Grid.Column="0" Text="0" Width="145"
-                               Foreground="#FF1F00E4" FontSize="96" FontFamily="Assets/digital-7.ttf#Digital-7"
-                               TextAlignment="Center" />
-                    <TextBlock x:Name="tb_RobotScore" Grid.Row="1" Grid.Column="1" Text="1" Width="145"
-                               Foreground="#FF1F00E4" FontSize="96" FontFamily="Assets/digital-7.ttf#Digital-7"
-                               TextAlignment="Center" />
-                    <TextBlock x:Name="tb_player" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Width="145"
-                               Foreground="#FF1F00E4"
-                               FontFamily="Assets/QuirkyRobot.ttf#QuirkyRobot" FontSize="40" TextAlignment="Center"
-                               Text="Playerr"
-                               Margin="5" />
-                </Grid>
+                <TextBlock x:Name="tb_Timer" Grid.Row="0"  Text="05:00" Height="auto" Width="auto" Style="{StaticResource  RedTextBlock}" Margin="0,0,0,0" />
+
+
+
+
+
                 <!--<Image x:Name="scoreTable" Grid.Row ="1" Source="Assets/ScoreTable.PNG" HorizontalAlignment="Stretch" Canvas.Left="43" Canvas.Top="211"/>-->
 
-                <Button x:Name="PauseButton" HorizontalAlignment="Stretch" Margin="102,0,108,42" Grid.Row="2"
-                        VerticalAlignment="Bottom" Height="75" Width="150" Click="PauseButton_OnClick">
+                <Button x:Name="PauseButton" HorizontalAlignment="Stretch" Margin="105,0,105,64" Grid.Row="1"
+                        VerticalAlignment="Bottom" Height="150" Width="150" Click="PauseButton_OnClick">
                     <Button.Background>
-                        <ImageBrush Stretch="Fill" ImageSource="Assets/pouseButton.png" />
+                        <ImageBrush x:Name="PauseButtonImage" Stretch="Fill" ImageSource="Assets/pause.png" />
                     </Button.Background>
                 </Button>
             </Grid>
 
-            <local:VolumeControl Name="VolumeControl" Grid.Row="2" VerticalAlignment="Bottom"></local:VolumeControl>
+            <local:VolumeControl x:Name="VolumeControl" Grid.Row="2" VerticalAlignment="Bottom"></local:VolumeControl>
         </Grid>
 
     </Grid>
