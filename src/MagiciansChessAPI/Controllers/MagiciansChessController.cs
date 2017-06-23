@@ -36,7 +36,7 @@ namespace MagiciansChessDataAPI.Controllers
     [HttpOperationExceptionFilterAttribute]
     public class MagiciansChessController : ApiController
     {
-        private string owner = "*";
+        private string username = "*";
 
         private static MagiciansChessAPI.MagiciansChessDataAPI NewDataAPIClient()
         {
@@ -56,13 +56,13 @@ namespace MagiciansChessDataAPI.Controllers
             //owner = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value;
             using (var client = NewDataAPIClient())
             {
-                var results = await client.LeaderboardEntryOperations.GetByOwnerAsync(owner);
-                return results.Select(m => new LeaderboardEntry
+                var results = await client.LeaderboardEntryOperations.GetWithHttpMessagesAsync(username);
+
+                return results.Body.Select(m => new LeaderboardEntry
                 {
-                    Description = m.Description,
+                    GameTime = m.GameTime,
                     ID = (int)m.ID,
-                    Owner = m.Owner,
-                    Type = (int)m.Type,
+                    Username = m.Username,
                 });
             }
         }

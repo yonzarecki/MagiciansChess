@@ -17,7 +17,7 @@ namespace MagiciansChessAPI
     /// </summary>
     public partial interface ILeaderboardEntryOperations
     {
-        /// <param name='owner'>
+        /// <param name='username'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -25,8 +25,8 @@ namespace MagiciansChessAPI
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetByOwnerWithHttpMessagesAsync(string owner, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <param name='todo'>
+        Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetWithHttpMessagesAsync(string username, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <param name='entry'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -34,8 +34,8 @@ namespace MagiciansChessAPI
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse> PutByTodoWithHttpMessagesAsync(LeaderboardEntry todo, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <param name='todo'>
+        Task<HttpOperationResponse> PutWithHttpMessagesAsync(LeaderboardEntry entry, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <param name='entry'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -43,8 +43,8 @@ namespace MagiciansChessAPI
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse> PostByTodoWithHttpMessagesAsync(LeaderboardEntry todo, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <param name='owner'>
+        Task<HttpOperationResponse> PostWithHttpMessagesAsync(LeaderboardEntry entry, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <param name='username'>
         /// </param>
         /// <param name='id'>
         /// </param>
@@ -54,8 +54,8 @@ namespace MagiciansChessAPI
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<LeaderboardEntry>> GetByIdByOwnerAndIdWithHttpMessagesAsync(string owner, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <param name='owner'>
+        Task<HttpOperationResponse<LeaderboardEntry>> GetByIdWithHttpMessagesAsync(string username, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <param name='username'>
         /// </param>
         /// <param name='id'>
         /// </param>
@@ -65,6 +65,6 @@ namespace MagiciansChessAPI
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse> DeleteByOwnerAndIdWithHttpMessagesAsync(string owner, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string username, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

@@ -61,14 +61,12 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock VerticalAlignment="Center" Text="Rank" Style="{StaticResource ListItemHeaderStyle}"/>
-                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Name" Style="{StaticResource ListItemHeaderStyle}"/>
-                                            <TextBlock Grid.Column="2" Style="{StaticResource ListItemHeaderStyle}">Player<LineBreak/>Score</TextBlock>
-                                            <TextBlock Grid.Column="3" Style="{StaticResource ListItemHeaderStyle}">Robot<LineBreak/>Score</TextBlock>
+                                            <TextBlock VerticalAlignment="Center" Text="Username" Style="{StaticResource ListItemHeaderStyle}"/>
+                                            <TextBlock Grid.Column="1" Style="{StaticResource ListItemHeaderStyle}">Human won ?</TextBlock>
+                                            <TextBlock Grid.Column="2" Style="{StaticResource ListItemHeaderStyle}">Total time<!--<LineBreak/>--></TextBlock>
 
                                         </Grid>
                                     </ListView.Header>
@@ -78,14 +76,12 @@
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="3*"/>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Path=Description}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=Type}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=Owner}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
-                                                <TextBlock Text="{Binding Path=id}" Foreground="White" Grid.Column="3" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=Username}" Foreground="White" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=HumanWon}" Foreground="White" Grid.Column="1" Style="{StaticResource ListItemTextStyle}"/>
+                                                <TextBlock Text="{Binding Path=GameTime}" Foreground="White" Grid.Column="2" Style="{StaticResource ListItemTextStyle}"/>
                                             </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>

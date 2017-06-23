@@ -232,5 +232,10 @@ namespace MagiciansChessApp
             connected = false;
             request.RequestRelease();
         }
+
+        private void SurrenderButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

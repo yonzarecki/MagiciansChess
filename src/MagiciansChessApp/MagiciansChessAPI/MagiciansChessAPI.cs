@@ -231,7 +231,7 @@ namespace MagiciansChessApp
         private void Initialize()
         {
             this.MagiciansChess = new MagiciansChess(this);
-            this.BaseUri = new Uri("https://magicianschessapi.azurewebsites.net:443");
+            this.BaseUri = new Uri("https://magicianschessapi.azurewebsites.net");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,

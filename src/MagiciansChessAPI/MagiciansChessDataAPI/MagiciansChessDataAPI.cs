@@ -53,7 +53,7 @@ namespace MagiciansChessAPI
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        private MagiciansChessDataAPI(params DelegatingHandler[] handlers) : base(handlers)
+        protected MagiciansChessDataAPI(params DelegatingHandler[] handlers) : base(handlers)
         {
             this.Initialize();
         }
@@ -231,7 +231,7 @@ namespace MagiciansChessAPI
         private void Initialize()
         {
             this.LeaderboardEntryOperations = new LeaderboardEntryOperations(this);
-            this.BaseUri = new Uri("https://magicianschessdataapi.azurewebsites.net:443");
+            this.BaseUri = new Uri("https://magicianschessdataapi.azurewebsites.net");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,

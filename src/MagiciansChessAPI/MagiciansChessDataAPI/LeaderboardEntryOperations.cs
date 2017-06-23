@@ -44,7 +44,7 @@ namespace MagiciansChessAPI
         /// </summary>
         public MagiciansChessDataAPI Client { get; private set; }
 
-        /// <param name='owner'>
+        /// <param name='username'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -55,11 +55,11 @@ namespace MagiciansChessAPI
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetByOwnerWithHttpMessagesAsync(string owner, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetWithHttpMessagesAsync(string username, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (owner == null)
+            if (username == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "owner");
+                throw new ValidationException(ValidationRules.CannotBeNull, "username");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -68,17 +68,17 @@ namespace MagiciansChessAPI
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("owner", owner);
+                tracingParameters.Add("username", username);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetByOwner", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "Get", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
             var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/LeaderboardEntry").ToString();
             List<string> _queryParameters = new List<string>();
-            if (owner != null)
+            if (username != null)
             {
-                _queryParameters.Add(string.Format("owner={0}", Uri.EscapeDataString(owner)));
+                _queryParameters.Add(string.Format("username={0}", Uri.EscapeDataString(username)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -170,7 +170,7 @@ namespace MagiciansChessAPI
             return _result;
         }
 
-        /// <param name='todo'>
+        /// <param name='entry'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -181,11 +181,11 @@ namespace MagiciansChessAPI
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> PutByTodoWithHttpMessagesAsync(LeaderboardEntry todo, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> PutWithHttpMessagesAsync(LeaderboardEntry entry, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (todo == null)
+            if (entry == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "todo");
+                throw new ValidationException(ValidationRules.CannotBeNull, "entry");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -194,9 +194,9 @@ namespace MagiciansChessAPI
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("todo", todo);
+                tracingParameters.Add("entry", entry);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "PutByTodo", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "Put", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
@@ -221,9 +221,9 @@ namespace MagiciansChessAPI
 
             // Serialize Request
             string _requestContent = null;
-            if(todo != null)
+            if(entry != null)
             {
-                _requestContent = SafeJsonConvert.SerializeObject(todo, this.Client.SerializationSettings);
+                _requestContent = SafeJsonConvert.SerializeObject(entry, this.Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, Encoding.UTF8);
                 _httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
             }
@@ -275,7 +275,7 @@ namespace MagiciansChessAPI
             return _result;
         }
 
-        /// <param name='todo'>
+        /// <param name='entry'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -286,11 +286,11 @@ namespace MagiciansChessAPI
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> PostByTodoWithHttpMessagesAsync(LeaderboardEntry todo, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> PostWithHttpMessagesAsync(LeaderboardEntry entry, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (todo == null)
+            if (entry == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "todo");
+                throw new ValidationException(ValidationRules.CannotBeNull, "entry");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -299,9 +299,9 @@ namespace MagiciansChessAPI
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("todo", todo);
+                tracingParameters.Add("entry", entry);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "PostByTodo", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "Post", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
@@ -326,9 +326,9 @@ namespace MagiciansChessAPI
 
             // Serialize Request
             string _requestContent = null;
-            if(todo != null)
+            if(entry != null)
             {
-                _requestContent = SafeJsonConvert.SerializeObject(todo, this.Client.SerializationSettings);
+                _requestContent = SafeJsonConvert.SerializeObject(entry, this.Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, Encoding.UTF8);
                 _httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
             }
@@ -380,7 +380,7 @@ namespace MagiciansChessAPI
             return _result;
         }
 
-        /// <param name='owner'>
+        /// <param name='username'>
         /// </param>
         /// <param name='id'>
         /// </param>
@@ -393,11 +393,11 @@ namespace MagiciansChessAPI
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<LeaderboardEntry>> GetByIdByOwnerAndIdWithHttpMessagesAsync(string owner, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<LeaderboardEntry>> GetByIdWithHttpMessagesAsync(string username, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (owner == null)
+            if (username == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "owner");
+                throw new ValidationException(ValidationRules.CannotBeNull, "username");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -406,19 +406,19 @@ namespace MagiciansChessAPI
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("owner", owner);
+                tracingParameters.Add("username", username);
                 tracingParameters.Add("id", id);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetByIdByOwnerAndId", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetById", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
             var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/LeaderboardEntry/{id}").ToString();
             _url = _url.Replace("{id}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(id, this.Client.SerializationSettings).Trim('"')));
             List<string> _queryParameters = new List<string>();
-            if (owner != null)
+            if (username != null)
             {
-                _queryParameters.Add(string.Format("owner={0}", Uri.EscapeDataString(owner)));
+                _queryParameters.Add(string.Format("username={0}", Uri.EscapeDataString(username)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -510,7 +510,7 @@ namespace MagiciansChessAPI
             return _result;
         }
 
-        /// <param name='owner'>
+        /// <param name='username'>
         /// </param>
         /// <param name='id'>
         /// </param>
@@ -523,11 +523,11 @@ namespace MagiciansChessAPI
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> DeleteByOwnerAndIdWithHttpMessagesAsync(string owner, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string username, int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (owner == null)
+            if (username == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "owner");
+                throw new ValidationException(ValidationRules.CannotBeNull, "username");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -536,19 +536,19 @@ namespace MagiciansChessAPI
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("owner", owner);
+                tracingParameters.Add("username", username);
                 tracingParameters.Add("id", id);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "DeleteByOwnerAndId", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "Delete", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
             var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/LeaderboardEntry/{id}").ToString();
             _url = _url.Replace("{id}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(id, this.Client.SerializationSettings).Trim('"')));
             List<string> _queryParameters = new List<string>();
-            if (owner != null)
+            if (username != null)
             {
-                _queryParameters.Add(string.Format("owner={0}", Uri.EscapeDataString(owner)));
+                _queryParameters.Add(string.Format("username={0}", Uri.EscapeDataString(username)));
             }
             if (_queryParameters.Count > 0)
             {

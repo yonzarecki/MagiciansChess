@@ -37,47 +37,47 @@ namespace MagiciansChessDataAPI.Controllers
         }
 
         // GET: api/ToDoItemList
-        public IEnumerable<LeaderboardEntry> Get(string owner)
+        public IEnumerable<LeaderboardEntry> Get(string username)
         {
             CheckCallerId();
 
-            return mockData.Values.Where(m => m.Owner == owner || owner == "*");
+            return mockData.Values.Where(m => m.username == username || username == "*");
         }
 
         // GET: api/ToDoItemList/5
-        public LeaderboardEntry GetById(string owner, int id)
+        public LeaderboardEntry GetById(string username, int id)
         {
             CheckCallerId();
 
-            return mockData.Values.Where(m => (m.Owner == owner || owner == "*" ) && m.ID == id).First();
+            return mockData.Values.Where(m => (m.username == username || username == "*" ) && m.ID == id).First();
         }
 
         // POST: api/ToDoItemList
-        public void Post(LeaderboardEntry todo)
+        public void Post(LeaderboardEntry entry)
         {
             CheckCallerId();
 
-            todo.ID = mockData.Count > 0 ? mockData.Keys.Max() + 1 : 1;
-            mockData.Add(todo.ID, todo);
+            entry.ID = mockData.Count > 0 ? mockData.Keys.Max() + 1 : 1;
+            mockData.Add(entry.ID, entry);
         }
 
-        public void Put(LeaderboardEntry todo)
+        public void Put(LeaderboardEntry entry)
         {
             CheckCallerId();
 
-            LeaderboardEntry xtodo = mockData.Values.First(a => (a.Owner == todo.Owner || todo.Owner == "*") && a.ID == todo.ID);
-            if (todo != null && xtodo != null)
+            LeaderboardEntry xentry = mockData.Values.First(a => (a.username == entry.username || entry.username == "*") && a.ID == entry.ID);
+            if (entry != null && xentry != null)
             {
-                xtodo.Description = todo.Description;
+                xentry.username = entry.username;
             }
         }
 
         // DELETE: api/ToDoItemList/5
-        public void Delete(string owner, int id)
+        public void Delete(string username, int id)
         {
             CheckCallerId();
 
-            LeaderboardEntry todo = mockData.Values.First(a => (a.Owner == owner || owner == "*") && a.ID == id);
+            LeaderboardEntry todo = mockData.Values.First(a => (a.username == username || username == "*") && a.ID == id);
             if (todo != null)
             {
                 mockData.Remove(todo.ID);

@@ -21,33 +21,33 @@ namespace MagiciansChessApp.Models
         /// <summary>
         /// Initializes a new instance of the LeaderboardEntry class.
         /// </summary>
-        public LeaderboardEntry(string id = default(string), string description = default(string), string type = default(string), string owner = default(string))
+        public LeaderboardEntry(int? id = default(int?), string username = default(string), bool? humanWon = default(bool?), string gameTime = default(string))
         {
             ID = id;
-            Description = description;
-            Type = type;
-            Owner = owner;
+            Username = username;
+            HumanWon = humanWon;
+            GameTime = gameTime;
         }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "ID")]
-        public string ID { get; set; }
+        public int? ID { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "Description")]
-        public string Description { get; set; }
+        [JsonProperty(PropertyName = "username")]
+        public string Username { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "Type")]
-        public string Type { get; set; }
+        [JsonProperty(PropertyName = "humanWon")]
+        public bool? HumanWon { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "Owner")]
-        public string Owner { get; set; }
+        [JsonProperty(PropertyName = "gameTime")]
+        public string GameTime { get; set; }
 
     }
 }

@@ -7,7 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="500" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="narrowView">
+
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid>
             <Grid.Background>
                 <ImageBrush ImageSource="Assets/Checkers_700.png" Stretch="UniformToFill"/>
@@ -25,20 +42,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <TextBlock x:Name="tb_Timer" Grid.Row="0"  Text="05:00" Height="auto" Width="auto" Style="{StaticResource  RedTextBlock}" Margin="0,0,0,0" />
 
-
-
-
-
-                <!--<Image x:Name="scoreTable" Grid.Row ="1" Source="Assets/ScoreTable.PNG" HorizontalAlignment="Stretch" Canvas.Left="43" Canvas.Top="211"/>-->
-
-                <Button x:Name="PauseButton" HorizontalAlignment="Stretch" Margin="105,0,105,64" Grid.Row="1"
-                        VerticalAlignment="Bottom" Height="150" Width="150" Click="PauseButton_OnClick">
+                <Button x:Name="PauseButton" HorizontalAlignment="Stretch" Margin="101,149,109,0"
+                        VerticalAlignment="Top" Height="150" Width="150" Click="PauseButton_OnClick" Grid.RowSpan="3">
                     <Button.Background>
                         <ImageBrush x:Name="PauseButtonImage" Stretch="Fill" ImageSource="Assets/pause.png" />
+                    </Button.Background>
+                </Button>
+
+                <Button x:Name="SurrenderButton" HorizontalAlignment="Stretch" Margin="134,0,135,58" Grid.Row="2"
+                        VerticalAlignment="Bottom" Height="90" Width="90" Click="SurrenderButton_Click">
+                    <Button.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="Assets/surrender.png" />
                     </Button.Background>
                 </Button>
             </Grid>
