@@ -233,4 +233,22 @@ namespace MagiciansChessApp
         }
 
     }
+
+    public class ChessGameManager
+    {
+        public static Game initializeGame()
+        {
+            return new Game();
+        }
+
+        public static async Task<int> GetBestMove(ChessLibrary.Game g)
+        {
+            using (var client = Utils.NewAPIClient())
+            {
+                //ChessAIExtensions.GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecs(new ChessAI(client), 
+                //    g.XMl);
+            }
+            return 55;
+        }
+    }
 }

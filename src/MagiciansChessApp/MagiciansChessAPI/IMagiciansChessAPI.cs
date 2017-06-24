@@ -40,9 +40,19 @@ namespace MagiciansChessApp
 
 
         /// <summary>
-        /// Gets the IMagiciansChess.
+        /// Gets the IChessAI.
         /// </summary>
-        IMagiciansChess MagiciansChess { get; }
+        IChessAI ChessAI { get; }
+
+        /// <summary>
+        /// Gets the IChessTest.
+        /// </summary>
+        IChessTest ChessTest { get; }
+
+        /// <summary>
+        /// Gets the ILeaderboard.
+        /// </summary>
+        ILeaderboard Leaderboard { get; }
 
     }
 }

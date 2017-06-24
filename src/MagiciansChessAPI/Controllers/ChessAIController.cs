@@ -23,10 +23,12 @@ namespace MagiciansChessAPI.Controllers
             Move bestMove = ChessAPI.calculateBestMove(gameXml, playerColor, timeLimitInSecs);
             System.Xml.Serialization.XmlSerializer writer =
             new System.Xml.Serialization.XmlSerializer(typeof(Move));
-            StringBuilder sb = new StringBuilder();
+            /*StringBuilder sb = new StringBuilder();
             StringWriter sw = new StringWriter(sb);
-            writer.Serialize(sw, bestMove);
+            writer.Serialize(sw, bestMove);*/
             return bestMove; // seralized move
         }
+
+
     }
 }

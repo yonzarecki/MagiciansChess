@@ -13,16 +13,16 @@ namespace MagiciansChessApp
     using Models;
 
     /// <summary>
-    /// Extension methods for MagiciansChess.
+    /// Extension methods for ChessTest.
     /// </summary>
-    public static partial class MagiciansChessExtensions
+    public static partial class ChessTestExtensions
     {
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IList<LeaderboardEntry> Get(this IMagiciansChess operations)
+            public static string GetInitialGame(this IChessTest operations)
             {
-                return Task.Factory.StartNew(s => ((IMagiciansChess)s).GetAsync(), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+                return Task.Factory.StartNew(s => ((IChessTest)s).GetInitialGameAsync(), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -31,9 +31,9 @@ namespace MagiciansChessApp
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<LeaderboardEntry>> GetAsync(this IMagiciansChess operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> GetInitialGameAsync(this IChessTest operations, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetInitialGameWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

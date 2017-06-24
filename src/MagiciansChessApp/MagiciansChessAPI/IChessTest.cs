@@ -13,9 +13,9 @@ namespace MagiciansChessApp
     using Models;
 
     /// <summary>
-    /// MagiciansChess operations.
+    /// ChessTest operations.
     /// </summary>
-    public partial interface IMagiciansChess
+    public partial interface IChessTest
     {
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -23,6 +23,6 @@ namespace MagiciansChessApp
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<string>> GetInitialGameWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

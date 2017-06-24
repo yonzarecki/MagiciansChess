@@ -43,9 +43,19 @@ namespace MagiciansChessApp
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
-        /// Gets the IMagiciansChess.
+        /// Gets the IChessAI.
         /// </summary>
-        public virtual IMagiciansChess MagiciansChess { get; private set; }
+        public virtual IChessAI ChessAI { get; private set; }
+
+        /// <summary>
+        /// Gets the IChessTest.
+        /// </summary>
+        public virtual IChessTest ChessTest { get; private set; }
+
+        /// <summary>
+        /// Gets the ILeaderboard.
+        /// </summary>
+        public virtual ILeaderboard Leaderboard { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the MagiciansChessAPI class.
@@ -81,7 +91,7 @@ namespace MagiciansChessApp
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MagiciansChessAPI(Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        protected MagiciansChessAPI(Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -230,7 +240,9 @@ namespace MagiciansChessApp
         /// </summary>
         private void Initialize()
         {
-            this.MagiciansChess = new MagiciansChess(this);
+            this.ChessAI = new ChessAI(this);
+            this.ChessTest = new ChessTest(this);
+            this.Leaderboard = new Leaderboard(this);
             this.BaseUri = new Uri("https://magicianschessapi.azurewebsites.net");
             SerializationSettings = new JsonSerializerSettings
             {

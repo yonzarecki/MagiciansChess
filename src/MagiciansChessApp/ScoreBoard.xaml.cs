@@ -52,7 +52,7 @@ namespace MagiciansChessApp
                 {
                     using (var client = Utils.NewAPIClient())
                     {
-                        AllGames = Utils.ToObservableCollection(MagiciansChessExtensions.Get(new MagiciansChess(client))); //table_entries
+                        AllGames = Utils.ToObservableCollection(LeaderboardExtensions.GetLeaderboardEntries(new Leaderboard(client))); //table_entries
                         LeaderboardListView.Visibility = Visibility.Visible;
                         LeaderboardListViewReal.ItemsSource = AllGames;
                     }
