@@ -1,7 +1,7 @@
 ﻿//using Microsoft.IdentityModel.Clients.ActiveDirectory;
 //using System.Configuration;
 
-//namespace ToDoListAPI
+//namespace MagiciansChessAPI
 //{
 //    public static class ServicePrincipal
 //    {

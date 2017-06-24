@@ -12,7 +12,10 @@ using System.Net.Http.Headers;
 using System.Configuration;
 using MagiciansChessAPI.Models;
 using MagiciansChessAPI;
-
+using ChessLibrary;
+using MagiciansChessAPI.QuickChess;
+using System.IO;
+using System.Text;
 
 namespace MagiciansChessDataAPI.Filters
 {
@@ -34,7 +37,7 @@ namespace MagiciansChessDataAPI.Filters
 namespace MagiciansChessDataAPI.Controllers
 {
     [HttpOperationExceptionFilterAttribute]
-    public class MagiciansChessController : ApiController
+    public class LeaderboardController : ApiController
     {
         private string username = "*";
 
@@ -49,23 +52,38 @@ namespace MagiciansChessDataAPI.Controllers
         // TODO - here we define all function for our controller, using the DataAPI client we defined above
 
 
-        // GET: api/ToDoItemList
-        public async Task<IEnumerable<LeaderboardEntry>> Get()
+        // GET: api/LeaderboardEntryList
+        public async Task<IEnumerable<LeaderboardEntry>> GetLeaderboardEntries()
         {
-            // Uncomment following line in each action method for user authentication
-            //owner = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value;
             using (var client = NewDataAPIClient())
             {
                 var results = await client.LeaderboardEntryOperations.GetWithHttpMessagesAsync(username);
-
                 return results.Body.Select(m => new LeaderboardEntry
                 {
                     GameTime = m.GameTime,
                     ID = (int)m.ID,
                     Username = m.Username,
+                    HumanWon = m.HumanWon
                 });
             }
         }
+
+        // POST: api/LeaderboardEntry
+        public async Task PostLeaderboardEntry(LeaderboardEntry entry)
+        {
+            using (var client = NewDataAPIClient())
+            {
+                await client.LeaderboardEntryOperations.PostAsync(new LeaderboardEntry
+                {
+                    Username = entry.Username,
+                    ID = entry.ID,
+                    GameTime = entry.GameTime,
+                    HumanWon = entry.HumanWon
+                });
+            }
+        }
+
+
 
         // GET: api/ToDoItemList/5
         /*public async Task<ToDoItem> GetByID(int id)

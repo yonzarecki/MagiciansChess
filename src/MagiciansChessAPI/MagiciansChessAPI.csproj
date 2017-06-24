@@ -73,15 +73,22 @@
       <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.5.1.4\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Rest.ClientRuntime.2.3.2\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Songhay, Version=2.0.0.26879, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SonghayCore.1.0.0\lib\net452\Songhay.dll</HintPath>
+    </Reference>
+    <Reference Include="SonghayCore, Version=1.0.0.26880, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SonghayCore.1.0.0\lib\net452\SonghayCore.dll</HintPath>
+    </Reference>
+    <Reference Include="SonghayCoreTesting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SonghayCoreTesting.1.0.3\lib\net452\SonghayCoreTesting.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Swashbuckle.Core.5.5.3\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -118,6 +125,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="TestToolsToXunitProxy, Version=0.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TestToolsToXunitProxy.0.0.4\lib\net45\TestToolsToXunitProxy.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -130,6 +140,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="QuickChess\ChessLibrary.csproj" />
+    <Content Include="QuickChess\ChessLibrary.csproj.user" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Web.config" />
@@ -138,7 +150,8 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\MagiciansChessController.cs" />
+    <Compile Include="Controllers\ChessAIController.cs" />
+    <Compile Include="Controllers\LeaderboardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,6 +162,17 @@
     <Compile Include="MagiciansChessDataAPI\MagiciansChessDataAPI.cs" />
     <Compile Include="MagiciansChessDataAPI\Models\LeaderboardEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuickChess\Board.cs" />
+    <Compile Include="QuickChess\Cell.cs" />
+    <Compile Include="QuickChess\ChessAPI.cs" />
+    <Compile Include="QuickChess\ChessCells.cs" />
+    <Compile Include="QuickChess\Game.cs" />
+    <Compile Include="QuickChess\Move.cs" />
+    <Compile Include="QuickChess\Piece.cs" />
+    <Compile Include="QuickChess\Player.cs" />
+    <Compile Include="QuickChess\Rules.cs" />
+    <Compile Include="QuickChess\Side.cs" />
+    <Compile Include="QuickChess\XmlHelper.cs" />
     <Compile Include="ServicePrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,7 +184,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
