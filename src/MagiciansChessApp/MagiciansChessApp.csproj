@@ -118,6 +118,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\digital-7.ttf" />
+    <Content Include="Assets\Sounds\chess_background_music.mp3" />
     <Content Include="QuickChess\ChessLibrary.csproj" />
     <Content Include="QuickChess\ChessLibrary.csproj.user" />
     <None Include="MagiciansChessApp_TemporaryKey.pfx" />
@@ -252,11 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Drawing.Primitives">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Drawing.Primitives.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

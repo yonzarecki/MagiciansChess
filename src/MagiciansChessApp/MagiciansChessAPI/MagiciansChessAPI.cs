@@ -91,7 +91,7 @@ namespace MagiciansChessApp
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        protected MagiciansChessAPI(Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        public MagiciansChessAPI(Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {

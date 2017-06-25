@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
+
 using System.Xml;
 
 namespace MagiciansChessAPI.QuickChess
@@ -57,9 +57,8 @@ namespace MagiciansChessAPI.QuickChess
         {
             Game g = new Game();
             XmlDocument doc = new XmlDocument();
-            XmlTextReader textReader = new XmlTextReader(new StringReader(gameXML));
-            XmlDocument myXmlDocument = new XmlDocument();
-            XmlNode newNode = myXmlDocument.ReadNode(textReader);
+            doc.LoadXml(gameXML);
+            XmlNode newNode = doc.DocumentElement;
             g.XmlDeserialize(newNode);
             return g;
         }

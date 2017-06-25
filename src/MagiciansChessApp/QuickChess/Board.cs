@@ -161,7 +161,7 @@ namespace ChessLibrary
 				{
                     // check and add the current type cell
                     if (this[row, col].piece != null && !this[row, col].IsEmpty() && this[row, col].piece.Side.type == PlayerSide)
-                        col = col; //CellNames.Add(this[row,col].ToString()); // append the cell name to list
+                        CellNames.Add(this[row,col].ToString()); // append the cell name to list
 				}
 
 			return CellNames;

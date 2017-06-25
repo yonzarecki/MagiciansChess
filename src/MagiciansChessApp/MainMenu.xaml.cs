@@ -60,18 +60,5 @@ namespace MagiciansChessApp
         }
         // TODO - here we define all function for our controller, using the DataAPI client we defined above
 
-
-
-        private void BtnGame_Copy_Click(object sender, RoutedEventArgs e)
-        {
-
-            using (var client = NewAPIClient())
-            {
-                int a = MagiciansChessExtensions.Get(new MagiciansChess(client)).Count;
-
-                MessageDialog msg = new MessageDialog("elem count :" + a.ToString());
-                var aa = msg.ShowAsync();
-            }           
-        }
     }
 }

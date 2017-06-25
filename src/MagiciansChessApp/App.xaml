@@ -66,7 +66,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Frame">
                         <Grid>
-                            <MediaElement  x:Name="BgSound" IsLooping="True" Source="Assets/Sounds/chess_background_music.mp3" />
+                            <MediaElement  x:Name="BgSound" IsLooping="True" Source="Assets/Sounds/Wigle_8bit.mp3" />
                             <ContentPresenter />
                         </Grid>
                     </ControlTemplate>
