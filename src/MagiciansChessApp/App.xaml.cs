@@ -24,23 +24,20 @@ namespace MagiciansChessApp
         const string serviceUrl = "https://magicianschessapi.azurewebsites.net";
         //const string serviceUrl = "http://localhost:6588/";
         const string appKey = "aJSRpYAfMyaGVWJxSPTIlDSjDMhWWo29";
+        const string bluetoothDeviceName = "rzl";
         public static MobileServiceClient MobileService = new MobileServiceClient(serviceUrl, appKey);
-
+        public static BluetoothConnection bluetoothManager = new BluetoothConnection(bluetoothDeviceName);
 
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.Resuming += OnResuming;
-        
         }
 
         private void OnResuming(object sender, object args)
         {
-            if (Server.Connected)
-            {
-                Server.SendToServer(Server.Command.START,Window.Current.Content as Frame);
-            }
+
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
@@ -145,7 +142,6 @@ namespace MagiciansChessApp
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
-            Server.SendToServer(Server.Command.TERMINATE, Window.Current.Content as Frame);
 
             deferral.Complete();
         }

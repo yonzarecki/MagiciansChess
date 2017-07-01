@@ -36,18 +36,7 @@
                             IsEnabled="False" />
                 </StackPanel>
             </StackPanel>
-            
-            <Grid x:Name="ChooseTimeOrScore" Grid.Row="2" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,50,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="120"  />
-                    <RowDefinition Height="120"  />
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="tb_greetingOutput" Grid.Row="0" />
-                <Button x:Name="btn_byTime" Grid.Row="1" Style="{StaticResource RedButton}" Content="Limit by Time" Click="BtnOption_OnClick" />
-                <Button x:Name="btn_byScore" Grid.Row="2" Style="{StaticResource RedButton}" Content="Limit by Score" Click="BtnOption_OnClick" />
-            </Grid>
-            
+          
             <local:VolumeControl x:Name="vc" Grid.Row="2" VerticalAlignment="Bottom" />
         </Grid>
     </Grid>

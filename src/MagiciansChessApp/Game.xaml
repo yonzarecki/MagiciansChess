@@ -40,22 +40,45 @@
             <Image x:Name="logo" Grid.Row="1" Source="Assets/MainLogo_transparent3.png" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock x:Name="tb_Timer" Grid.Row="0"  Text="05:00" Height="auto" Width="auto" Style="{StaticResource  RedTextBlock}" Margin="0,0,0,0" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock x:Name="tb_Timer" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Text="05:00" Height="auto" Width="auto" Style="{StaticResource  RedTextBlock}" Margin="160,0,0,0" />
 
-                <Button x:Name="PauseButton" HorizontalAlignment="Stretch" Margin="101,149,109,0"
-                        VerticalAlignment="Top" Height="150" Width="150" Click="PauseButton_OnClick" Grid.RowSpan="3">
+                <Button x:Name="PauseButton" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="3"
+                         Height="90" Width="90" Click="PauseButton_OnClick">
                     <Button.Background>
                         <ImageBrush x:Name="PauseButtonImage" Stretch="Fill" ImageSource="Assets/pause.png" />
                     </Button.Background>
                 </Button>
 
-                <Button x:Name="SurrenderButton" HorizontalAlignment="Stretch" Margin="134,0,135,58" Grid.Row="2"
-                        VerticalAlignment="Bottom" Height="90" Width="90" Click="SurrenderButton_Click">
+                <TextBlock Text="enter move(letter number):" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="160,10,0,10"
+                           FontFamily="Global Monospace" FontSize="20" FontWeight="Bold" Foreground="BurlyWood" x:Name="InputTextBlock"/>
+
+                <TextBox x:Name="fromInput" Width="260" HorizontalAlignment="Left" Text="" Grid.Row="2" Grid.Column="2" Margin="160,10,0,10"
+                             PlaceholderText="From" TextChanging="OnTextChanging" />
+
+                <TextBox x:Name="toInput" Width="260" HorizontalAlignment="Left" Text="" Grid.Row="3" Grid.Column="2" Margin="160,10,0,10"
+                             PlaceholderText="To" TextChanging="OnTextChanging" />
+
+                <Button x:Name="inputButton" Style="{StaticResource RedButton}" Content="Done" Grid.Row="4" Grid.Column="2"
+                            Click="DoneClick" FontSize="40" Margin="160,10,0,10"
+                            IsEnabled="False" />
+
+                <Button x:Name="SurrenderButton" HorizontalAlignment="Stretch" Grid.Row="5" Grid.Column="2" Margin="160,0,0,0"
+                        Height="70" Width="70" Click="SurrenderButton_Click">
                     <Button.Background>
                         <ImageBrush Stretch="Fill" ImageSource="Assets/surrender.png" />
                     </Button.Background>

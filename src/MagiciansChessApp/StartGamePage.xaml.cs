@@ -26,6 +26,7 @@ namespace MagiciansChessApp
     /// </summary>
     public sealed partial class StartGamePage : Page
     {
+        public static Boolean connected = false; 
         public StartGamePage()
         {
             this.InitializeComponent();
@@ -44,9 +45,8 @@ namespace MagiciansChessApp
             }
             else
             {
-                NamePanel.Visibility = Visibility.Collapsed;
-                tb_greetingOutput.Text = "Hello, " + nameInput.Text + "!";
-                ChooseTimeOrScore.Visibility = Visibility.Visible;
+                Session session = new Session(false, nameInput.Text);
+                Frame.Navigate(typeof(Game), session);
             }
         }
         
@@ -55,18 +55,19 @@ namespace MagiciansChessApp
             inputButton.IsEnabled = ((TextBox) sender).Text != string.Empty;
         }
 
-        private void BtnOption_OnClick(object sender, RoutedEventArgs e)
-        {
-            Button btnSender = sender as Button;
-            bool byScore = btnSender == btn_byScore;
-
-            Session session = new Session(byScore, nameInput.Text);
-            Frame.Navigate(typeof (Game), session);
-        }
-
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             vc = e.Parameter as VolumeControl;
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (!connected)
+            {
+                //await App.bluetoothManager.Connect();
+                connected = true;
+            }
         }
     }
 }

@@ -38,138 +38,6 @@ namespace MagiciansChessApp
 
         public string PlayerName { get; set; }
     }
-
-    /*
-     * Server for accessing the board through the WiFi module.
-     */ 
-    public class Server
-    {
-        public enum Command
-        {
-            START = 'S',
-            TERMINATE = 'T',
-            GOAL_ROBOT = 'R',
-            GOAL_PLAYER = 'P',
-            EMPTY = 'E',
-            ALIVE = 'A'
-        }
-
-        static StreamSocket socket;
-        static DataReader reader;
-        static DataWriter writer;
-        static string port = "8001";
-        static string ip = "192.168.8.250";
-        static HostName host;
-        public static bool Paused { get; set; }
-        public delegate void ScoreUpdator(bool UserScored);
-        static ScoreUpdator UpdateScore;
-        public static bool Connected { get; set; }
-
-        static Server()
-        {
-            Connected = false;
-        }
-        public static void Initiate(ScoreUpdator updatorFunc)
-        {
-            if (Connected)
-            {
-                Dispose();
-            }
-            socket = new StreamSocket();
-            host = new HostName(ip);
-            UpdateScore = updatorFunc;
-            Connected = false;
-        }
-        public static async Task listenToPackets()
-        {
-            //await listener.BindServiceNameAsync(port);
-
-            try
-            {
-                reader = new DataReader(socket.InputStream);
-                while (true) //TODO: while we didn't end game
-                {
-                    reader.InputStreamOptions = InputStreamOptions.Partial;
-                    uint income = await reader.LoadAsync(sizeof(uint));
-                    string s = reader.ReadString(income);
-                    if (Paused)
-                    {
-                        continue;
-                    }
-
-                    switch (s)
-                    {
-                        case "R":
-                            UpdateScore(false);
-                            break;
-                        case "P":
-                            UpdateScore(true);
-                            break;
-                        default:
-                            break;
-                    }
-                    if (!Connected)
-                    {
-                        return;
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                // If this is an unknown status it means that the error is fatal and retry will likely fail.
-                if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown)
-                {
-                    throw;
-                }
-            }
-        }
-        public static async Task<bool> ConnectToServer(Frame current)
-        {
-
-            ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
-
-            //if (connectionProfile == null || !connectionProfile.IsWlanConnectionProfile)
-            //{
-            //    MessageDialog msg = new MessageDialog("Please Enable WiFi", "Wifi Connection");
-            //    UICommand OK = new UICommand("OK");
-            //    Utils.Show(msg, new List<UICommand>() { OK });
-            //    current.Navigate(typeof(MainMenu), null);
-            //    return false;
-            //}
-            await socket.ConnectAsync(host, port);
-            Connected = true;
-            return true;
-        }
-        public static async void SendToServer(Command c,Frame current)
-        {
-            //while (!connected) { }
-            try {
-                writer = new DataWriter(socket.OutputStream);
-                writer.WriteByte(Convert.ToByte((char)c));
-                await writer.StoreAsync();
-#pragma warning disable CS0168 // Variable is declared but never used
-            }
-            catch (Exception e)
-#pragma warning restore CS0168 // Variable is declared but never used
-            {
-                MessageDialog msgDialog = new MessageDialog("The Connection Has Been Closed.");
-                //UICommand OK = new UICommand("OK");
-                //OK.Invoked += (IUICommand command) =>
-                //{
-                //    Server.Dispose(); current.Navigate(typeof(MainMenu), null);
-                //};
-
-                //Utils.Show(msgDialog, new List<UICommand> { OK });
-            }
-            
-        }
-        public static void Dispose()
-        {
-            socket.Dispose();
-            Connected = false;
-        }
-
-    }
     
     public static class Utils
     {
@@ -236,9 +104,9 @@ namespace MagiciansChessApp
 
     public class ChessGameManager
     {
-        public static Game initializeGame()
+        public static ChessLibrary.Game initializeGame()
         {
-            return new Game();
+            return new ChessLibrary.Game();
         }
 
         public static async Task<int> GetBestMove(ChessLibrary.Game g)
@@ -249,6 +117,11 @@ namespace MagiciansChessApp
                 //    g.XMl);
             }
             return 55;
+        }
+
+        public static async void sendMoveToBoard(String move)
+        {
+            await App.bluetoothManager.Send(move);
         }
     }
 }

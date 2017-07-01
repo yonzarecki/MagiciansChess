@@ -1,146 +1,141 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Networking;
+using System.Diagnostics;
+using Windows.Devices.Bluetooth.Rfcomm;
+using Windows.Devices.Enumeration;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
+using Windows.Networking.Proximity;
 
-namespace BluetoothConnectionManager
+namespace MagiciansChessApp
 {
-    /// <summary>
-    /// Class to control the bluetooth connection to the Arduino.
-    /// </summary>
-    public class ConnectionManager
+    public class BluetoothConnection
     {
-        /// <summary>
-        /// Socket used to communicate with Arduino.
-        /// </summary>
-        private StreamSocket socket;
+        #region Properties
+        private string bluetoothName;
+        public StreamSocket socket;
+        public DataReader dataReader;
+        public DataWriter dataWriter;
+        public RfcommDeviceService service;
+        #endregion
 
+        #region Methods
         /// <summary>
-        /// DataWriter used to send commands easily.
+        /// The constructor 
         /// </summary>
-        private DataWriter dataWriter;
-
-        /// <summary>
-        /// DataReader used to receive messages easily.
-        /// </summary>
-        private DataReader dataReader;
-
-        /// <summary>
-        /// Thread used to keep reading data from socket.
-        /// </summary>
-        private BackgroundWorker dataReadWorker;
-
-        /// <summary>
-        /// Delegate used by event handler.
-        /// </summary>
-        /// <param name="message">The message received.</param>
-        public delegate void MessageReceivedHandler(string message);
-
-        /// <summary>
-        /// Event fired when a new message is received from Arduino.
-        /// </summary>
-        public event MessageReceivedHandler MessageReceived;
-
-        /// <summary>
-        /// Initialize the manager, should be called in OnNavigatedTo of main page.
-        /// </summary>
-        public void Initialize()
+        /// <param name="name">The name of the bluetooth module</param>
+        public BluetoothConnection(string name)
         {
-            socket = new StreamSocket();
-            dataReadWorker = new BackgroundWorker();
-            dataReadWorker.WorkerSupportsCancellation = true;
-            dataReadWorker.DoWork += new DoWorkEventHandler(ReceiveMessages);
+            bluetoothName = name;
         }
 
-        /// <summary>
-        /// Finalize the connection manager, should be called in OnNavigatedFrom of main page.
-        /// </summary>
-        public void Terminate()
-        {
-            if (socket != null)
-            {
-                socket.Dispose();
-            }
-            if (dataReadWorker != null)
-            {
-                dataReadWorker.CancelAsync();
-            }
-        }
 
         /// <summary>
-        /// Connect to the given host device.
+        /// The function connects to the Bluetooth module
         /// </summary>
-        /// <param name="deviceHostName">The host device name.</param>
-        public async void Connect(HostName deviceHostName)
-        {
-            if (socket != null)
-            {
-                await socket.ConnectAsync(deviceHostName, "1");
-                dataReader = new DataReader(socket.InputStream);
-                dataReadWorker.RunWorkerAsync();
-                dataWriter = new DataWriter(socket.OutputStream);
-            }
-        }
-
-        /// <summary>
-        /// Receive messages from the Arduino through bluetooth.
-        /// </summary>
-        private async void ReceiveMessages(object sender, DoWorkEventArgs e)
+        /// <remarks>Notice that when you connect once,
+        /// the module may not connect the second time.
+        /// To solve it just reboot the device</remarks>
+        /// <returns>A Task, just await it</returns>
+        public async Task Connect()
         {
             try
             {
-                while (true)
-                {
-                    // Read first byte (length of the subsequent message, 255 or less). 
-                    uint sizeFieldCount = await dataReader.LoadAsync(1);
-                    if (sizeFieldCount != 1)
-                    {
-                        // The underlying socket was closed before we were able to read the whole data. 
-                        return;
-                    }
+                var devices =
+                      await DeviceInformation.FindAllAsync(
+                        RfcommDeviceService.GetDeviceSelector(
+                          RfcommServiceId.SerialPort));
+                var device = devices.Single(x => x.Name == bluetoothName);
+                service = await RfcommDeviceService.FromIdAsync(
+                                                        device.Id);
+                socket = new StreamSocket();
+                await socket.ConnectAsync(
+                     service.ConnectionHostName,
+                     service.ConnectionServiceName);
+                dataReader = new DataReader(socket.InputStream);
+                dataWriter = new DataWriter(socket.OutputStream);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                socket.Dispose();
+                socket = null;
+                service.Dispose();
+                service = null;
+            }
+        }
 
-                    // Read the message. 
-                    uint messageLength = dataReader.ReadByte();
-                    uint actualMessageLength = await dataReader.LoadAsync(messageLength);
-                    if (messageLength != actualMessageLength)
-                    {
-                        // The underlying socket was closed before we were able to read the whole data. 
-                        return;
-                    }
-                    // Read the message and process it.
-                    string message = dataReader.ReadString(actualMessageLength);
-                    MessageReceived(message);
-                }
+        /// <summary>
+        /// A function for disconnection
+        /// </summary>
+        /// <returns>A Task, just await it</returns>
+        public async Task Disconnect()
+        {
+            try
+            {
+                await socket.CancelIOAsync();
+                socket.Dispose();
+                socket = null;
+                service.Dispose();
+                service = null;
+
+
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
-
         }
+
 
         /// <summary>
-        /// Send command to the Arduino through bluetooth.
+        /// The funciton send a message and then wait until the 
+        /// Bluetooth module send a message back (One char only!). 
         /// </summary>
-        /// <param name="command">The sent command.</param>
-        /// <returns>The number of bytes sent</returns>
-        public async Task<uint> SendCommand(string command)
+        /// <param name="msg">The message to send</param>
+        /// <returns>A task, just await it</returns>
+        public async Task<string> Send(string msg)
         {
-            uint sentCommandSize = 0;
-            if (dataWriter != null)
+            try
             {
-                uint commandSize = dataWriter.MeasureString(command);
-                dataWriter.WriteByte((byte)commandSize);
-                sentCommandSize = dataWriter.WriteString(command);
-                await dataWriter.StoreAsync();
+                var writer = dataWriter;
+                writer.WriteString(msg);
+                if (writer == null)
+                {
+                    Debug.WriteLine("you have a problem with writer");
+                }
+                var store = writer.StoreAsync();
+                return await Recieve();
             }
-            return sentCommandSize;
+            catch (Exception ex)
+            {
+                if (socket != null)
+                {
+                    Debug.Write(ex.Message);
+                }
+                else
+                {
+                    Debug.Write("Socket is null");
+                }
+
+                return "Bad Output";
+            }
         }
+
+
+        /// <summary>
+        /// The functions waits for the module to send data (one char) back
+        /// </summary>
+        /// <returns>A task, just await it</returns>
+        public async Task<string> Recieve()
+        {
+            DataReader bluetoothReader = dataReader;
+            var bytesToRead = await bluetoothReader.LoadAsync(1);
+            var oneByte = bluetoothReader.ReadString(bytesToRead);
+            return oneByte.ToString();
+        }
+        #endregion
+
     }
 }

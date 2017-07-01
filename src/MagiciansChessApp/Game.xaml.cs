@@ -35,22 +35,8 @@ namespace MagiciansChessApp
     public sealed partial class Game : Page
     {
         private TimeSpan second = TimeSpan.Zero;
-        private const int SCORE_LIMIT = 5;
-        bool connected = false;
-        bool paused = false;
-        DisplayRequest request;
-
-        private Server.Command command = Server.Command.EMPTY;
-
-        private Session Params { get; set; }
-        private bool Countdown { get { return Params.ByTime; } }
+        private ChessLibrary.Game currGame;
         
-        public Game()
-        {
-            Server.Initiate(UpdateScore);
-            request = new DisplayRequest();
-        }
-
         private string showTime()
         {
             return TimeSpaner.ToString().Substring(3); // format is MM:SS
@@ -68,27 +54,7 @@ namespace MagiciansChessApp
 
         private void DispatcherTimer_Tick(object sender, object eo)
         {
-            if(command != Server.Command.EMPTY)
-            {
-                switch (command)
-                {
-                    case Server.Command.START: //souldn't get here
-                        break;
-                    case Server.Command.TERMINATE:
-                        stopGame(false);
-                        break;
-                    case Server.Command.GOAL_ROBOT:
-                        UpdateScore(false);           
-                        break;
-                    case Server.Command.GOAL_PLAYER:
-                        UpdateScore(true);
-                        break;
-                    case Server.Command.EMPTY: //souldn't get here
-                        break;
-                }
-
-                command = Server.Command.EMPTY;
-            }
+            
             second += TimeSpan.FromMilliseconds(10);
             if(second < TimeSpan.FromMilliseconds(400))
             {
@@ -97,65 +63,29 @@ namespace MagiciansChessApp
 
             second = TimeSpan.Zero;
 
-            if (Countdown) // by time : 
-            {
-                TimeSpaner -= TimeSpan.FromSeconds(1);
-            }
-
-            if (!Countdown) // by score : 
-            {
-                TimeSpaner += TimeSpan.FromSeconds(1);
-            }
+            TimeSpaner += TimeSpan.FromSeconds(1);
 
             tb_Timer.Text = showTime();
-            if (Countdown && TimeSpaner == TimeSpan.FromSeconds(0))
-            {
-                stopGame(false);
-            }
-            
         }
 
         private void UpdateScore(bool UserScored)
         {
-            /*int userScore = int.Parse(tb_UserScore.Text);
-            int robotScore = int.Parse(tb_RobotScore.Text);
-
-            if (UserScored)
-            {
-                tb_UserScore.Text = (userScore + 1).ToString();
-            }
-
-            if (!UserScored)
-            {
-                tb_RobotScore.Text = (robotScore + 1).ToString();
-            }
-
-            if(Params.ByScore && (userScore == SCORE_LIMIT || robotScore == SCORE_LIMIT))
-            {
-                stopGame(false);
-            }*/
+            
         }
 
         private void Popup_OK_Invoked(IUICommand command)
         {
             //TODO: Insert new score to the DB
-            Server.SendToServer(Server.Command.TERMINATE,Frame);
-            Server.Dispose();
-            Frame.Navigate(typeof(ScoreBoard), Params);
+            
         }
+
         private void stopGame(bool navigation)  // TODO: change to our game
         {
             Timer.Stop();
-            Server.SendToServer(Server.Command.TERMINATE,Frame);
 
             if (!navigation)
             {
-                // TODO: change comments in all file
-                /*int playerScore = int.Parse(tb_UserScore.Text);
-                int robotScore = int.Parse(tb_RobotScore.Text);*/
-
-                // Utils.AddTimeLimitedGameAsync(Params.PlayerName, DateTime.Now, playerScore,robotScore);
-
+                // TODO: change comments in all file    
                 MessageDialog msgDialog = new MessageDialog("Game is Over !");
                 UICommand OK = new UICommand("OK");
                 OK.Invoked += Popup_OK_Invoked;
@@ -175,67 +105,86 @@ namespace MagiciansChessApp
             {
                 stopTimer();
                 PauseButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/play.png", UriKind.Absolute));
-                Server.Paused = true;
             }
 
             else
             {
                 resumeTimer();
                 PauseButtonImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/pause.png", UriKind.Absolute));
-                Server.Paused = false;
             }
+        }
+
+        private Boolean checkValid(String str)
+        {
+            return str.Length == 2 &&
+                   char.IsLetter(str[0]) &&
+                   char.IsDigit(str[1]);
+        }
+
+        private void OnTextChanging(TextBox sender, TextBoxTextChangingEventArgs e)
+        {
+            inputButton.IsEnabled = checkValid(fromInput.Text) && checkValid(toInput.Text);
+        }
+
+        private void setComputerTurn()
+        {
+            InputTextBlock.Text = "enter move(letter number):";
+            fromInput.Visibility = Visibility.Visible;
+            toInput.Visibility = Visibility.Visible;
+            inputButton.Visibility = Visibility.Visible;
+        }
+
+        private void setHumenTurn()
+        {
+            InputTextBlock.Text = "Computer is making a move";
+            fromInput.Visibility = Visibility.Collapsed;
+            toInput.Visibility = Visibility.Collapsed;
+            inputButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void DoneClick(object sender, RoutedEventArgs e)
+        {
+            /*
+             * the Do Move dosent work throws null exception nedd to look why
+            if(currGame.DoMove(fromInput.Text,toInput.Text) == -1)
+            {
+                MessageDialog msg = new MessageDialog("Invalid Move! please enter again");
+                Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+            }
+            */
+            //updated move in board and all is legal
+            setComputerTurn();
+            //TODO: compute move
+            //TODO: sendmove to board
+            //setHumenTurn();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e) // 
         {
-            Params = e.Parameter as Session;
             this.InitializeComponent();
-            request.RequestActive();
+            this.currGame = ChessGameManager.initializeGame();
 
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
             Timer = new DispatcherTimer();
             Timer.Interval = TimeSpan.FromMilliseconds(10);
             Timer.Tick += DispatcherTimer_Tick;
-            if (Params.ByTime)
-            {
-                //TimeSpaner = TimeSpan.FromMinutes(3);
-                TimeSpaner = TimeSpan.FromSeconds(45);
-            }
+            TimeSpaner = TimeSpan.FromMinutes(0);
 
-            if (Params.ByScore)
-            {
-                TimeSpaner = TimeSpan.Zero;
-            }
             tb_Timer.Text = showTime();
             Timer.Start();
-
-            /*tb_player.Text = Params.PlayerName;
-
-            //reset Score : 
-            tb_UserScore.Text = 0.ToString();
-            tb_RobotScore.Text = 0.ToString();*/
-
-            //Connecting to the local Ad-Hock Wifi Server
-
-            await Server.ConnectToServer(Frame);
-           
-            Server.SendToServer(Server.Command.START, Frame);
-            await Server.listenToPackets();
-            
             
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             stopGame(true);
-            Server.Dispose();
-            connected = false;
-            request.RequestRelease();
+            Frame.Navigate(typeof(MainMenu));
         }
 
         private void SurrenderButton_Click(object sender, RoutedEventArgs e)
         {
-
+            stopGame(true);
+            Frame.Navigate(typeof(MainMenu));
         }
     }
 }

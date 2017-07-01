@@ -27,10 +27,12 @@ namespace MagiciansChessApp
     /// </summary>
     public sealed partial class MainMenu : Page
     {
+        public static BluetoothConnection connectionManager = new BluetoothConnection("rzl");
+
         public MainMenu()
         {
             this.InitializeComponent();
-            
+            connectionManager.Connect();
 
         }
    
