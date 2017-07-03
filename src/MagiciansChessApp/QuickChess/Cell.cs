@@ -72,7 +72,7 @@ namespace ChessLibrary
 		public string ToString2()
 		{
 			string strLoc="";
-			int BoardRow = Math.Abs(8-row)+1;		// On the chess board column start from bottom
+			int BoardRow = Math.Abs(5-row)+1;		// On the chess board column start from bottom
 			strLoc=Convert.ToString(Convert.ToChar(col+64));	// Convert the row literal i.e. 1=a, 2=b and so on.
 			strLoc+=BoardRow.ToString();								// convert and append column string
 			return strLoc;	// return back the converted string

@@ -40,35 +40,27 @@ namespace ChessLibrary
 			m_cells.Clear();		// Remove any existing chess cells
 
 			// Build the 64 chess board cells
-			for (int row=1; row<=8; row++)
-				for (int col=1; col<=8; col++)
+			for (int row=1; row<=5; row++)
+				for (int col=1; col<=4; col++)
 				{
 					m_cells.Add(new Cell(row,col));	// Initialize and add the new chess cell
 				}
 
-			// Now setup the board for black side
-			m_cells["a1"].piece = new Piece(Piece.PieceType.Rook,m_BlackSide);
-			m_cells["h1"].piece = new Piece(Piece.PieceType.Rook,m_BlackSide);
-			m_cells["b1"].piece = new Piece(Piece.PieceType.Knight,m_BlackSide);
-			m_cells["g1"].piece = new Piece(Piece.PieceType.Knight,m_BlackSide);
-			m_cells["c1"].piece = new Piece(Piece.PieceType.Bishop,m_BlackSide);
-			m_cells["f1"].piece = new Piece(Piece.PieceType.Bishop,m_BlackSide);
-			m_cells["e1"].piece = new Piece(Piece.PieceType.King,m_BlackSide);
-			m_cells["d1"].piece = new Piece(Piece.PieceType.Queen,m_BlackSide);
-			for (int col=1; col<=8; col++)
-				m_cells[2, col].piece = new Piece(Piece.PieceType.Pawn,m_BlackSide);
-
 			// Now setup the board for white side
-			m_cells["a8"].piece = new Piece(Piece.PieceType.Rook,m_WhiteSide);
-			m_cells["h8"].piece = new Piece(Piece.PieceType.Rook,m_WhiteSide);
-			m_cells["b8"].piece = new Piece(Piece.PieceType.Knight,m_WhiteSide);
-			m_cells["g8"].piece = new Piece(Piece.PieceType.Knight,m_WhiteSide);
-			m_cells["c8"].piece = new Piece(Piece.PieceType.Bishop,m_WhiteSide);
-			m_cells["f8"].piece = new Piece(Piece.PieceType.Bishop,m_WhiteSide);
-			m_cells["e8"].piece = new Piece(Piece.PieceType.King,m_WhiteSide);
-			m_cells["d8"].piece = new Piece(Piece.PieceType.Queen,m_WhiteSide);
-			for (int col=1; col<=8; col++)
-				m_cells[7, col].piece = new Piece(Piece.PieceType.Pawn,m_WhiteSide);
+			m_cells["a1"].piece = new Piece(Piece.PieceType.Rook,m_WhiteSide);
+			m_cells["b1"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
+			m_cells["c1"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
+			m_cells["d1"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
+            m_cells["d2"].piece = new Piece(Piece.PieceType.Pawn, m_WhiteSide);
+
+
+
+            // Now setup the board for black side
+            m_cells["a5"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
+            m_cells["b5"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
+            m_cells["c5"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
+            m_cells["d5"].piece = new Piece(Piece.PieceType.Rook, m_WhiteSide);
+            m_cells["a4"].piece = new Piece(Piece.PieceType.Pawn, m_WhiteSide);
 		}
 
         // get the new item by rew and column
@@ -140,8 +132,8 @@ namespace ChessLibrary
 			ArrayList CellNames = new ArrayList();
 
 			// Loop all the squars and store them in Array List
-			for (int row=1; row<=8; row++)
-				for (int col=1; col<=8; col++)
+			for (int row=1; row<=5; row++)
+				for (int col=1; col<=4; col++)
 				{
 					CellNames.Add(this[row,col].ToString()); // append the cell name to list
 				}
@@ -156,8 +148,8 @@ namespace ChessLibrary
 
             ArrayList CellNames = new ArrayList();
 			// Loop all the squars and store them in Array List
-			for (int row=1; row<=8; row++)
-				for (int col=1; col<=8; col++)
+			for (int row=1; row<=5; row++)
+				for (int col=1; col<=4; col++)
 				{
                     // check and add the current type cell
                     if (this[row, col].piece != null && !this[row, col].IsEmpty() && this[row, col].piece.Side.type == PlayerSide)

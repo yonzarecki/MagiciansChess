@@ -79,7 +79,7 @@ namespace MagiciansChessAPI.QuickChess
             Move nextMove = p.GetBestMove();
             g.DoMove(nextMove); // update board with new move.
             XmlDocument doc = new XmlDocument();
-            
+
             return nextMove;
         }
     }

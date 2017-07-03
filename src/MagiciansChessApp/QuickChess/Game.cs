@@ -24,9 +24,9 @@ namespace ChessLibrary
     [KnownType(typeof(Player))]
     [KnownType(typeof(bool))]
     public class Game
-	{
-		// Define delegates used to communicate the chess events to the UI
-		public delegate void ChessComputerThinking(int depth, int currentMove, int TotalMoves, int TotalAnalzyed , Move BestMove);
+    {
+        // Define delegates used to communicate the chess events to the UI
+        public delegate void ChessComputerThinking(int depth, int currentMove, int TotalMoves, int TotalAnalzyed, Move BestMove);
 
         public event ChessComputerThinking ComputerThinking;    // Event used to fire computer thinking status
 
@@ -51,49 +51,49 @@ namespace ChessLibrary
         [DataMember]
         public bool DoPrincipleVariation;   // True when computer should use principle variation to optimize search
         [DataMember]
-        public bool DoQuiescentSearch;		// Return true when computer should do Queiscent search
+        public bool DoQuiescentSearch;      // Return true when computer should do Queiscent search
 
-		public Game()
-		{
-			Board = new Board();
+        public Game()
+        {
+            Board = new Board();
 
-			m_Rules = new Rules(Board, this);	
-			m_MovesHistory = new Stack();
-			m_RedoMovesHistory = new Stack();
+            m_Rules = new Rules(Board, this);
+            m_MovesHistory = new Stack();
+            m_RedoMovesHistory = new Stack();
             m_WhitePlayer = new Player(new Side(Side.SideType.White), Player.Type.Human, m_Rules);	// For the start both player are human
-            m_BlackPlayer = new Player(new Side(Side.SideType.Black), Player.Type.Human, m_Rules);	// For the start both player are human
-		}
+            m_BlackPlayer = new Player(new Side(Side.SideType.Black), Player.Type.Human, m_Rules);  // For the start both player are human
+        }
 
         // Fire the computer thinking events to all the subscribers
         public void NotifyComputerThinking(int depth, int currentMove, int TotalMoves, int TotalAnalzyed, Move BestMove)
-		{
-			if (ComputerThinking!=null)	// There are some subscribers
-				ComputerThinking(depth, currentMove, TotalMoves, TotalAnalzyed, BestMove);
-		}
+        {
+            if (ComputerThinking != null)   // There are some subscribers
+                ComputerThinking(depth, currentMove, TotalMoves, TotalAnalzyed, BestMove);
+        }
 
-		// get the new item by rew and column
-		public Cell this[int row, int col]
-		{
-			get
-			{
-				return Board[row, col];
-			}
-		}
+        // get the new item by rew and column
+        public Cell this[int row, int col]
+        {
+            get
+            {
+                return Board[row, col];
+            }
+        }
 
-		// get the new item by string location
-		public Cell this[string strloc]
-		{
-			get
-			{
-				return Board[strloc];	
-			}
-		}
+        // get the new item by string location
+        public Cell this[string strloc]
+        {
+            get
+            {
+                return Board[strloc];
+            }
+        }
 
-		// Return true, when it's a computer vs. computer game
-		public bool CompVsCompGame()
-		{
-			return (m_WhitePlayer.PlayerType == m_BlackPlayer.PlayerType);
-		}
+        // Return true, when it's a computer vs. computer game
+        public bool CompVsCompGame()
+        {
+            return (m_WhitePlayer.PlayerType == m_BlackPlayer.PlayerType);
+        }
 
 
         // Computer the checksum for the XML content
@@ -132,7 +132,7 @@ namespace ChessLibrary
 
             // Store all the moves from the move history
             string xml = "";
-            for (int i = moves.Length - 1; i >= 0; i-- )
+            for (int i = moves.Length - 1; i >= 0; i--)
             {
                 Move move = (Move)moves[i];
                 xml += XMLHelper.XmlSerialize(typeof(Move), move);
@@ -156,7 +156,7 @@ namespace ChessLibrary
         {
             // If this source file doesn't contain the check sum attribut, return back
             //if (xmlGame.Attributes["Checksum"] == null)
-              //  return;
+            //  return;
 
             // Read game state attributes
             DoNullMovePruning = (XMLHelper.GetNodeText(xmlGame, "DoNullMovePruning") == "True");
@@ -188,137 +188,137 @@ namespace ChessLibrary
             }
         }
 
-		// Reset the game board and all player status
-		public void Reset()
-		{
-			m_MovesHistory.Clear();
-			m_RedoMovesHistory.Clear();
+        // Reset the game board and all player status
+        public void Reset()
+        {
+            m_MovesHistory.Clear();
+            m_RedoMovesHistory.Clear();
 
-			// Reset player timers
-			m_WhitePlayer.ResetTime();
-			m_BlackPlayer.ResetTime();
+            // Reset player timers
+            m_WhitePlayer.ResetTime();
+            m_BlackPlayer.ResetTime();
 
-            GameTurn = Side.SideType.White;	// In chess first turn is always of white
-			m_WhitePlayer.TimeStart();	// Player time starts
-			Board.Init();	// Initialize the board object
-		}
+            GameTurn = Side.SideType.White; // In chess first turn is always of white
+            m_WhitePlayer.TimeStart();  // Player time starts
+            Board.Init();   // Initialize the board object
+        }
 
-		// Return back the white player reference
-		public Player WhitePlayer
-		{
-			get
-			{
-				return m_WhitePlayer;
-			}
-		}
+        // Return back the white player reference
+        public Player WhitePlayer
+        {
+            get
+            {
+                return m_WhitePlayer;
+            }
+        }
 
-		// Return back the black player reference
-		public Player BlackPlayer
-		{
-			get
-			{
-				return m_BlackPlayer;
-			}
-		}
+        // Return back the black player reference
+        public Player BlackPlayer
+        {
+            get
+            {
+                return m_BlackPlayer;
+            }
+        }
 
-		// Return the active player who has the turn to play
-		public Player ActivePlay
-		{
-			get
-			{
-				if (BlackTurn())
-					return m_BlackPlayer;
-				else
-					return m_WhitePlayer;
-			}
-		}
+        // Return the active player who has the turn to play
+        public Player ActivePlay
+        {
+            get
+            {
+                if (BlackTurn())
+                    return m_BlackPlayer;
+                else
+                    return m_WhitePlayer;
+            }
+        }
 
-		// Return the enemy player for the given player
-		public Player EnemyPlayer(Side Player)
-		{
-			if (Player.isBlack())
-				return m_WhitePlayer;
-			else
-				return m_BlackPlayer;
-		}
+        // Return the enemy player for the given player
+        public Player EnemyPlayer(Side Player)
+        {
+            if (Player.isBlack())
+                return m_WhitePlayer;
+            else
+                return m_BlackPlayer;
+        }
 
-		// Return back the given side type
+        // Return back the given side type
         public Player GetPlayerBySide(Side.SideType type)
-		{
+        {
             if (type == Side.SideType.Black)
-				return m_BlackPlayer;
-			else
-				return m_WhitePlayer;
-		}
+                return m_BlackPlayer;
+            else
+                return m_WhitePlayer;
+        }
 
-		// Re-calculate the total thinking time of the player
-		public void UpdateTime()
-		{
-			if (BlackTurn())	// Black player turn
-				m_BlackPlayer.UpdateTime();
-			else
-				m_WhitePlayer.UpdateTime();
-		}
+        // Re-calculate the total thinking time of the player
+        public void UpdateTime()
+        {
+            if (BlackTurn())    // Black player turn
+                m_BlackPlayer.UpdateTime();
+            else
+                m_WhitePlayer.UpdateTime();
+        }
 
-		// Return true if it's black turn to move
-		public bool BlackTurn()
-		{
+        // Return true if it's black turn to move
+        public bool BlackTurn()
+        {
             return (GameTurn == Side.SideType.Black);
-		}
+        }
 
-		// Return true if it's white turn to move
-		public bool WhiteTurn()
-		{
+        // Return true if it's white turn to move
+        public bool WhiteTurn()
+        {
             return (GameTurn == Side.SideType.White);
-		}
+        }
 
-		// Set game turn for the next player
-		public void NextPlayerTurn()
-		{
+        // Set game turn for the next player
+        public void NextPlayerTurn()
+        {
             if (GameTurn == Side.SideType.White)
-			{
-				m_WhitePlayer.TimeEnd();		
-				m_BlackPlayer.TimeStart();		// Start player timer
-                GameTurn = Side.SideType.Black;		// Set black's turn
-			}
-			else
-			{
-				m_BlackPlayer.TimeEnd();
-				m_WhitePlayer.TimeStart();		// Start player timer
-                GameTurn = Side.SideType.White;		// Set white's turn
-			}
-		}
+            {
+                m_WhitePlayer.TimeEnd();
+                m_BlackPlayer.TimeStart();		// Start player timer
+                GameTurn = Side.SideType.Black;     // Set black's turn
+            }
+            else
+            {
+                m_BlackPlayer.TimeEnd();
+                m_WhitePlayer.TimeStart();		// Start player timer
+                GameTurn = Side.SideType.White;     // Set white's turn
+            }
+        }
 
-		// Returns all the legal moves for the given cell
-		public ArrayList GetLegalMoves(Cell source)
-		{
-			return m_Rules.GetLegalMoves(source);
-		}
+        // Returns all the legal moves for the given cell
+        public ArrayList GetLegalMoves(Cell source)
+        {
+            return m_Rules.GetLegalMoves(source);
+        }
 
-		// Creat the move object and execute it
-		public int DoMove(string source, string dest)
-		{
-			int MoveResult;
+        // Creat the move object and execute it
+        public int DoMove(string source, string dest)
+        {
+            int MoveResult;
 
-			// check if it's user turn to play
-            if (this.Board[source].piece != null && 
-                this.Board[source].piece.Type != Piece.PieceType.Empty && 
+            // check if it's user turn to play
+            if (this.Board[source].piece != null &&
+                this.Board[source].piece.Type != Piece.PieceType.Empty &&
                 this.Board[source].piece.Side.type == GameTurn)
-			{
-				Move UserMove = new Move(this.Board[source], this.Board[dest]);	// create the move object
-				MoveResult=m_Rules.DoMove(UserMove);
+            {
+                Move UserMove = new Move(this.Board[source], this.Board[dest]); // create the move object
+                MoveResult = m_Rules.DoMove(UserMove);
 
-				// If the move was successfully executed
-				if (MoveResult==0)
-				{
-					m_MovesHistory.Push(UserMove);
-					NextPlayerTurn();
-				}
-			}
-			else
-				MoveResult=-1;
-			return MoveResult;	// Executed
-		}
+                // If the move was successfully executed
+                if (MoveResult == 0)
+                {
+                    m_MovesHistory.Push(UserMove);
+                    NextPlayerTurn();
+                }
+            }
+            else
+                MoveResult = -1;
+            return MoveResult;  // Executed
+        }
 
         // get move object and execute it
         public int DoMove(Move userMove)
@@ -337,35 +337,35 @@ namespace ChessLibrary
 
         // Undo one move from the moves history
         public bool UnDoMove()
-		{
-			// Check if there are Undo Moves available
-			if (m_MovesHistory.Count>0)
-			{
-				Move UserMove = (Move)m_MovesHistory.Pop();	// Ge the user move from his moves history stack
-				m_RedoMovesHistory.Push(UserMove);			// Add this move in user Redo moves stack
-				m_Rules.UndoMove(UserMove);					// Undo the user move
-				NextPlayerTurn();							// Switch the user turn
-				return true;
-			}
-			else
-				return false;
-		}
+        {
+            // Check if there are Undo Moves available
+            if (m_MovesHistory.Count > 0)
+            {
+                Move UserMove = (Move)m_MovesHistory.Pop(); // Ge the user move from his moves history stack
+                m_RedoMovesHistory.Push(UserMove);          // Add this move in user Redo moves stack
+                m_Rules.UndoMove(UserMove);                 // Undo the user move
+                NextPlayerTurn();                           // Switch the user turn
+                return true;
+            }
+            else
+                return false;
+        }
 
-		// Redo one move from the ReDo moves history
-		public bool ReDoMove()
-		{
-			// Check if there are Redo Moves
-			if (m_RedoMovesHistory.Count>0)
-			{
-				Move UserMove = (Move)m_RedoMovesHistory.Pop();	// Ge the user move from his moves history stack
-				m_MovesHistory.Push(UserMove);				// Add to the user undo move list
-				m_Rules.DoMove(UserMove);					// Undo the user move
-				NextPlayerTurn();							// Switch the user turn
-				return true;
-			}
-			else
-				return false;
-		}
+        // Redo one move from the ReDo moves history
+        public bool ReDoMove()
+        {
+            // Check if there are Redo Moves
+            if (m_RedoMovesHistory.Count > 0)
+            {
+                Move UserMove = (Move)m_RedoMovesHistory.Pop(); // Ge the user move from his moves history stack
+                m_MovesHistory.Push(UserMove);              // Add to the user undo move list
+                m_Rules.DoMove(UserMove);                   // Undo the user move
+                NextPlayerTurn();                           // Switch the user turn
+                return true;
+            }
+            else
+                return false;
+        }
 
         /// <summary>
         /// Get the move history object
@@ -375,46 +375,46 @@ namespace ChessLibrary
             get { return m_MovesHistory; }
         }
 
-		// Return true if the given side is checkmate
+        // Return true if the given side is checkmate
         public bool IsCheckMate(Side.SideType PlayerSide)
-		{
-			return m_Rules.IsCheckMate(PlayerSide);
-		}
+        {
+            return m_Rules.IsCheckMate(PlayerSide);
+        }
 
-		// Return true if the given side is stalemate
+        // Return true if the given side is stalemate
         public bool IsStaleMate(Side.SideType PlayerSide)
-		{
-			return m_Rules.IsStaleMate(PlayerSide);
-		}
+        {
+            return m_Rules.IsStaleMate(PlayerSide);
+        }
 
-		// Return true if the current player is under check
-		public bool IsUnderCheck()
-		{
-			return m_Rules.IsUnderCheck(GameTurn);
-		}
-		 
+        // Return true if the current player is under check
+        public bool IsUnderCheck()
+        {
+            return m_Rules.IsUnderCheck(GameTurn);
+        }
 
-		// Return the last executed move
-		public Move GetLastMove()
-		{
-			// Check if there are Undo Moves available
-			if (m_MovesHistory.Count>0)
-			{
-				return (Move)m_MovesHistory.Peek();	// Ge the user move from his moves history stack
-			}
-			return null;
-		}
 
-		// Set the promo item for the last move
-		public void SetPromoPiece(Piece PromoPiece)
-		{
-			// Check if there are Undo Moves available
-			if (m_MovesHistory.Count>0)
-			{
-				Move move=(Move)m_MovesHistory.Peek();	// Ge the user move from his moves history
-				move.EndCell.piece = PromoPiece;	// Set the promo piece
-				move.PromoPiece = PromoPiece;		// Update the promo piece variable
-			}
-		}
-	}
+        // Return the last executed move
+        public Move GetLastMove()
+        {
+            // Check if there are Undo Moves available
+            if (m_MovesHistory.Count > 0)
+            {
+                return (Move)m_MovesHistory.Peek(); // Ge the user move from his moves history stack
+            }
+            return null;
+        }
+
+        // Set the promo item for the last move
+        public void SetPromoPiece(Piece PromoPiece)
+        {
+            // Check if there are Undo Moves available
+            if (m_MovesHistory.Count > 0)
+            {
+                Move move = (Move)m_MovesHistory.Peek();    // Ge the user move from his moves history
+                move.EndCell.piece = PromoPiece;    // Set the promo piece
+                move.PromoPiece = PromoPiece;       // Update the promo piece variable
+            }
+        }
+    }
 }

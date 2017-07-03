@@ -90,8 +90,8 @@ namespace ChessLibrary
 
             string xml = "";
             // Serialize and append every cell of this board
-            for (int row = 1; row <= 8; row++)
-                for (int col = 1; col <= 8; col++)
+            for (int row = 1; row <= 5; row++)
+                for (int col = 1; col <= 4; col++)
                 {
                     Cell cell = this[row, col];
 
@@ -114,8 +114,8 @@ namespace ChessLibrary
             XmlNode cellXml = xmlCells.FirstChild;
 
             // Serialize and append every cell of this board back to chess cells
-            for (int row = 1; row <= 8; row++)
-                for (int col = 1; col <= 8; col++)
+            for (int row = 1; row <= 5; row++)
+                for (int col = 1; col <= 4; col++)
                 {
                     Cell cell = (Cell)XMLHelper.XmlDeserialize(typeof(Cell), cellXml.OuterXml);
                     m_Cells[GetKey(row, col)] = cell;

@@ -19,7 +19,7 @@ namespace ChessLibrary
     [DataContract(IsReference = true)]
     public class Move
 	{
-		public enum MoveType {NormalMove, CaputreMove, TowerMove, PromotionMove, EnPassant};    // Type of the move
+		public enum MoveType {NormalMove, CaputreMove, PromotionMove};    // Type of the move
 
         [DataMember]
         private Cell m_StartCell;   // start cell
@@ -31,8 +31,6 @@ namespace ChessLibrary
         private Piece m_CapturedPiece;  // Piece captured by this mov
         [DataMember]
         private Piece m_PromoPiece;     // Piece selected after pawn promotion
-        [DataMember]
-        private Piece m_EnPassantPiece; // Piece captured during enpassant move
         [DataMember]
         private MoveType m_Type;        // Type of the move
         [DataMember]
@@ -143,19 +141,6 @@ namespace ChessLibrary
 			set
 			{
 				m_PromoPiece=value;
-			}
-		}
-
-		// Set and get the EnPassant piece
-		public Piece EnPassantPiece
-		{
-			get
-			{
-				return m_EnPassantPiece;
-			}
-			set
-			{
-				m_EnPassantPiece=value;
 			}
 		}
 
