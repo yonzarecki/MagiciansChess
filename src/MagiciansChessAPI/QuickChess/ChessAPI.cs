@@ -64,6 +64,13 @@ namespace MagiciansChessAPI.QuickChess
             return g;
         }
 
+        public static Game xmlDeserializeXMLNode(XmlNode gameXMLNode)
+        {
+            Game g = new Game();
+            g.XmlDeserialize(gameXMLNode);
+            return g;
+        }
+
         /// <summary>
         ///  calculates the best next move with the current game state for the player
         /// </summary>
@@ -81,6 +88,19 @@ namespace MagiciansChessAPI.QuickChess
             g.DoMove(nextMove); // update board with new move.
             XmlDocument doc = new XmlDocument();
             
+            return nextMove;
+        }
+
+        public static Move calculateBestMoveXmlNode(XmlNode gameXmlNode, int timeLimitInSecs)
+        {
+            Game g = xmlDeserializeXMLNode(gameXmlNode);
+            Player p = g.ActivePlay;
+            p.TotalThinkTime = timeLimitInSecs;  // sets the time
+
+            Move nextMove = p.GetBestMove();
+            g.DoMove(nextMove); // update board with new move.
+            XmlDocument doc = new XmlDocument();
+
             return nextMove;
         }
     }

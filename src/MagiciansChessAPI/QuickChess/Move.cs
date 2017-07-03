@@ -193,8 +193,17 @@ namespace ChessLibrary
 				return m_Piece + " " + m_StartCell.ToString2() + "-" + m_EndCell.ToString2();
 		}
 
+        //Return a descriptive move text
+        public string ToString2()
+        {
+            if (m_Type == Move.MoveType.CaputreMove)    // It's a capture move
+                return m_Piece + " " + m_StartCell.ToString() + "x" + m_EndCell.ToString();
+            else
+                return m_Piece + " " + m_StartCell.ToString() + "-" + m_EndCell.ToString();
+        }
+
         // TODO: maybe add read write from XML string
-	}
+    }
 
 	// This class is used to compare two Move type objects
 	public class MoveCompare : System.Collections.IComparer

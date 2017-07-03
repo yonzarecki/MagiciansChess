@@ -25,7 +25,7 @@ namespace MagiciansChessApp
         public VolumeControl()
         {
             this.InitializeComponent();
-            SoundMuted = false;
+            SoundMuted = true;
             //BackgroundVolume = 5;
         }
 

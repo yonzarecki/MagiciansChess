@@ -188,9 +188,9 @@ namespace ChessLibrary
 		public override string ToString()
 		{
 			if (m_Type == Move.MoveType.CaputreMove)	// It's a capture move
-				return m_Piece + " " + m_StartCell.ToString2() + "x" + m_EndCell.ToString2();
+				return m_Piece + " " + m_StartCell.ToString() + "x" + m_EndCell.ToString();
 			else
-				return m_Piece + " " + m_StartCell.ToString2() + "-" + m_EndCell.ToString2();
+				return m_Piece + " " + m_StartCell.ToString() + "-" + m_EndCell.ToString();
 		}
 
         // TODO: maybe add read write from XML string

@@ -20,12 +20,7 @@ namespace MagiciansChessApp
         /// </summary>
 
         public const string apiUrl = "https://magicianschessapi.azurewebsites.net";
-        // TODO remove
-        const string serviceUrl = "https://magicianschessapi.azurewebsites.net";
-        //const string serviceUrl = "http://localhost:6588/";
-        const string appKey = "aJSRpYAfMyaGVWJxSPTIlDSjDMhWWo29";
         const string bluetoothDeviceName = "rzl";
-        public static MobileServiceClient MobileService = new MobileServiceClient(serviceUrl, appKey);
         public static BluetoothConnection bluetoothManager = new BluetoothConnection(bluetoothDeviceName);
 
         public App()

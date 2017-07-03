@@ -74,7 +74,7 @@ namespace ChessLibrary
 		{
 			get
 			{
-				int col=char.Parse(strloc.Substring(0,1).ToUpper())-64; // Get row from first ascii char i.e. a=1, b=2 and so on
+				int col =char.Parse(strloc.Substring(0,1).ToUpper())-64; // Get row from first ascii char i.e. a=1, b=2 and so on
 				int row=int.Parse(strloc.Substring(1,1));				  // Get column value directly, as it's already numeric
 				return (Cell)m_Cells[GetKey(row,col)];
 			}

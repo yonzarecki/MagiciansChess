@@ -21,6 +21,8 @@ namespace ChessLibrary
     /// This the main chess game class. It contains a chess board and two players. Also initialize and maintains the status of the game.
     /// </summary>
     [DataContract(IsReference = true)]
+    [KnownType(typeof(Player))]
+    [KnownType(typeof(bool))]
     public class Game
 	{
 		// Define delegates used to communicate the chess events to the UI

@@ -22,13 +22,11 @@ namespace MagiciansChessApp
             /// </param>
             /// <param name='gameXml'>
             /// </param>
-            /// <param name='playerColor'>
-            /// </param>
             /// <param name='timeLimitInSecs'>
             /// </param>
-            public static Move GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecs(this IChessAI operations, string gameXml, string playerColor, int timeLimitInSecs)
+            public static string PostByGamexmlAndTimelimitinsecs(this IChessAI operations, StringAux gameXml, int timeLimitInSecs)
             {
-                return Task.Factory.StartNew(s => ((IChessAI)s).GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecsAsync(gameXml, playerColor, timeLimitInSecs), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+                return Task.Factory.StartNew(s => ((IChessAI)s).PostByGamexmlAndTimelimitinsecsAsync(gameXml, timeLimitInSecs), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -36,16 +34,14 @@ namespace MagiciansChessApp
             /// </param>
             /// <param name='gameXml'>
             /// </param>
-            /// <param name='playerColor'>
-            /// </param>
             /// <param name='timeLimitInSecs'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<Move> GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecsAsync(this IChessAI operations, string gameXml, string playerColor, int timeLimitInSecs, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<string> PostByGamexmlAndTimelimitinsecsAsync(this IChessAI operations, StringAux gameXml, int timeLimitInSecs, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecsWithHttpMessagesAsync(gameXml, playerColor, timeLimitInSecs, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.PostByGamexmlAndTimelimitinsecsWithHttpMessagesAsync(gameXml, timeLimitInSecs, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

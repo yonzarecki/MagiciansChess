@@ -143,11 +143,8 @@
     <Compile Include="MagiciansChessAPI\Leaderboard.cs" />
     <Compile Include="MagiciansChessAPI\LeaderboardExtensions.cs" />
     <Compile Include="MagiciansChessAPI\MagiciansChessAPI.cs" />
-    <Compile Include="MagiciansChessAPI\Models\Cell.cs" />
     <Compile Include="MagiciansChessAPI\Models\LeaderboardEntry.cs" />
-    <Compile Include="MagiciansChessAPI\Models\Move.cs" />
-    <Compile Include="MagiciansChessAPI\Models\Piece.cs" />
-    <Compile Include="MagiciansChessAPI\Models\Side.cs" />
+    <Compile Include="MagiciansChessAPI\Models\StringAux.cs" />
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>

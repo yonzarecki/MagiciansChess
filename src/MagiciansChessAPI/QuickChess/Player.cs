@@ -18,6 +18,7 @@ namespace ChessLibrary
     /// his type, name, image and side.
     /// </summary>
     [DataContract(IsReference = true)]
+    [KnownType(typeof(Move))]
     public class Player
 	{
         [DataMember]
@@ -29,7 +30,7 @@ namespace ChessLibrary
         [DataMember]
         private Rules m_Rules;      // A reference to the chess rules
         [DataMember]
-        private TimeSpan m_MaxThinkTime;		// Maximum think time in seconds
+        public TimeSpan m_MaxThinkTime;		// Maximum think time in seconds
 
         [DataMember]
         private TimeSpan m_TotalThinkTime;  // Stores total think time of the player

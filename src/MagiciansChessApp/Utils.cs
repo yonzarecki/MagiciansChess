@@ -11,6 +11,11 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
 using System.Collections.ObjectModel;
+using System.Text;
+using System.Xml.Linq;
+using System.IO;
+using Newtonsoft.Json;
+using System.Xml;
 
 namespace MagiciansChessApp
 {
@@ -106,17 +111,35 @@ namespace MagiciansChessApp
     {
         public static ChessLibrary.Game initializeGame()
         {
-            return new ChessLibrary.Game();
+            ChessLibrary.Game g = new ChessLibrary.Game();
+            g.Reset();
+            return g;
         }
 
-        public static async Task<int> GetBestMove(ChessLibrary.Game g)
+        public static string GetBestMove(ChessLibrary.Game g)
         {
             using (var client = Utils.NewAPIClient())
             {
-                //ChessAIExtensions.GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecs(new ChessAI(client), 
-                //    g.XMl);
-            }
-            return 55;
+                //ChessAI ai = new ChessAI(client);
+                //string game_xml = g.XmlSerialize(new System.Xml.XmlDocument()).InnerText;
+                //string type = g.GameTurn.GetType().ToString();
+                
+                string gameXml = g.XmlSerialize(new System.Xml.XmlDocument()).OuterXml;
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(gameXml);
+                XmlNode gameXmlNode = doc.DocumentElement;
+                ChessLibrary.Game g1 = new ChessLibrary.Game();
+                g1.XmlDeserialize(gameXmlNode);
+
+                ChessLibrary.Move m = g1.ActivePlay.GetBestMove();
+                string best_str = m.ToString();
+
+
+                string m_str = ChessAIExtensions.PostByGamexmlAndTimelimitinsecs(new ChessAI(client),
+                    new Models.StringAux(gameXml), 5);
+                return m_str;
+            }   
+
         }
 
         public static async void sendMoveToBoard(String move)

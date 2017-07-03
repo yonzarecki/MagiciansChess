@@ -18,6 +18,7 @@ namespace ChessLibrary
     /// his type, name, image and side.
     /// </summary>
     [DataContract(IsReference = true)]
+    [KnownType(typeof(Move))]
     public class Player
 	{
         [DataMember]

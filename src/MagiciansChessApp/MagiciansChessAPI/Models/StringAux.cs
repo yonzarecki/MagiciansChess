@@ -11,25 +11,25 @@ namespace MagiciansChessApp.Models
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
 
-    public partial class Side
+    public partial class StringAux
     {
         /// <summary>
-        /// Initializes a new instance of the Side class.
+        /// Initializes a new instance of the StringAux class.
         /// </summary>
-        public Side() { }
+        public StringAux() { }
 
         /// <summary>
-        /// Initializes a new instance of the Side class.
+        /// Initializes a new instance of the StringAux class.
         /// </summary>
-        public Side(int? mSide = default(int?))
+        public StringAux(string str = default(string))
         {
-            MSide = mSide;
+            Str = str;
         }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "m_side")]
-        public int? MSide { get; set; }
+        [JsonProperty(PropertyName = "str")]
+        public string Str { get; set; }
 
     }
 }

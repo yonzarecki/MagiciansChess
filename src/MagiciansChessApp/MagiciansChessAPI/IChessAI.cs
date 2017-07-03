@@ -19,8 +19,6 @@ namespace MagiciansChessApp
     {
         /// <param name='gameXml'>
         /// </param>
-        /// <param name='playerColor'>
-        /// </param>
         /// <param name='timeLimitInSecs'>
         /// </param>
         /// <param name='customHeaders'>
@@ -29,6 +27,6 @@ namespace MagiciansChessApp
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<Move>> GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecsWithHttpMessagesAsync(string gameXml, string playerColor, int timeLimitInSecs, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<string>> PostByGamexmlAndTimelimitinsecsWithHttpMessagesAsync(StringAux gameXml, int timeLimitInSecs, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

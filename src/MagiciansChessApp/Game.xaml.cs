@@ -126,7 +126,7 @@ namespace MagiciansChessApp
             inputButton.IsEnabled = checkValid(fromInput.Text) && checkValid(toInput.Text);
         }
 
-        private void setComputerTurn()
+        private void setHumanTurn()
         {
             InputTextBlock.Text = "enter move(letter number):";
             fromInput.Visibility = Visibility.Visible;
@@ -134,7 +134,7 @@ namespace MagiciansChessApp
             inputButton.Visibility = Visibility.Visible;
         }
 
-        private void setHumenTurn()
+        private void setComputerTurn()
         {
             InputTextBlock.Text = "Computer is making a move";
             fromInput.Visibility = Visibility.Collapsed;
@@ -145,18 +145,30 @@ namespace MagiciansChessApp
         private void DoneClick(object sender, RoutedEventArgs e)
         {
             /*
-             * the Do Move dosent work throws null exception nedd to look why
+             * the Do Move dosent work throws null exception nedd to look why */
             if(currGame.DoMove(fromInput.Text,toInput.Text) == -1)
             {
                 MessageDialog msg = new MessageDialog("Invalid Move! please enter again");
                 Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+                return;
             }
-            */
+            
             //updated move in board and all is legal
             setComputerTurn();
-            //TODO: compute move
+            string move_str = ChessGameManager.GetBestMove(currGame);
+            bool pieceCaptured = false;
+            if (move_str[move_str.Length - 3] == 'x')
+                pieceCaptured = true;
+            // execute computer move
+            if(currGame.DoMove(move_str.Substring(move_str.Length - 5, 2), move_str.Substring(move_str.Length - 2, 2)) == -1)
+            {
+                MessageDialog msg = new MessageDialog("Computer Error !");
+                Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+                return;
+            }
+
             //TODO: sendmove to board
-            //setHumenTurn();
+            setHumanTurn();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e) // 

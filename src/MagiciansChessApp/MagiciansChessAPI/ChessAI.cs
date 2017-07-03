@@ -46,8 +46,6 @@ namespace MagiciansChessApp
 
         /// <param name='gameXml'>
         /// </param>
-        /// <param name='playerColor'>
-        /// </param>
         /// <param name='timeLimitInSecs'>
         /// </param>
         /// <param name='customHeaders'>
@@ -59,15 +57,11 @@ namespace MagiciansChessApp
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<Move>> GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecsWithHttpMessagesAsync(string gameXml, string playerColor, int timeLimitInSecs, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<string>> PostByGamexmlAndTimelimitinsecsWithHttpMessagesAsync(StringAux gameXml, int timeLimitInSecs, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (gameXml == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "gameXml");
-            }
-            if (playerColor == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "playerColor");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -77,23 +71,14 @@ namespace MagiciansChessApp
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("gameXml", gameXml);
-                tracingParameters.Add("playerColor", playerColor);
                 tracingParameters.Add("timeLimitInSecs", timeLimitInSecs);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetBestMoveByGamexmlAndPlayercolorAndTimelimitinsecs", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "PostByGamexmlAndTimelimitinsecs", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
             var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/ChessAI").ToString();
             List<string> _queryParameters = new List<string>();
-            if (gameXml != null)
-            {
-                _queryParameters.Add(string.Format("gameXml={0}", Uri.EscapeDataString(gameXml)));
-            }
-            if (playerColor != null)
-            {
-                _queryParameters.Add(string.Format("playerColor={0}", Uri.EscapeDataString(playerColor)));
-            }
             _queryParameters.Add(string.Format("timeLimitInSecs={0}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(timeLimitInSecs, this.Client.SerializationSettings).Trim('"'))));
             if (_queryParameters.Count > 0)
             {
@@ -102,7 +87,7 @@ namespace MagiciansChessApp
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.Method = new HttpMethod("POST");
             _httpRequest.RequestUri = new Uri(_url);
             // Set Headers
             if (customHeaders != null)
@@ -119,6 +104,12 @@ namespace MagiciansChessApp
 
             // Serialize Request
             string _requestContent = null;
+            if(gameXml != null)
+            {
+                _requestContent = SafeJsonConvert.SerializeObject(gameXml, this.Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
             // Set Credentials
             if (this.Client.Credentials != null)
             {
@@ -157,7 +148,7 @@ namespace MagiciansChessApp
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<Move>();
+            var _result = new HttpOperationResponse<string>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -166,7 +157,7 @@ namespace MagiciansChessApp
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<Move>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<string>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

@@ -21,6 +21,8 @@ namespace ChessLibrary
     /// This the main chess game class. It contains a chess board and two players. Also initialize and maintains the status of the game.
     /// </summary>
     [DataContract(IsReference = true)]
+    [KnownType(typeof(Player))]
+    [KnownType(typeof(bool))]
     public class Game
 	{
 		// Define delegates used to communicate the chess events to the UI
@@ -153,8 +155,8 @@ namespace ChessLibrary
         public void XmlDeserialize(XmlNode xmlGame)
         {
             // If this source file doesn't contain the check sum attribut, return back
-            if (xmlGame.Attributes["Checksum"] == null)
-                return;
+            //if (xmlGame.Attributes["Checksum"] == null)
+              //  return;
 
             // Read game state attributes
             DoNullMovePruning = (XMLHelper.GetNodeText(xmlGame, "DoNullMovePruning") == "True");
@@ -299,7 +301,9 @@ namespace ChessLibrary
 			int MoveResult;
 
 			// check if it's user turn to play
-            if (this.Board[source].piece != null && this.Board[source].piece.Type != Piece.PieceType.Empty && this.Board[source].piece.Side.type == GameTurn)
+            if (this.Board[source].piece != null && 
+                this.Board[source].piece.Type != Piece.PieceType.Empty && 
+                this.Board[source].piece.Side.type == GameTurn)
 			{
 				Move UserMove = new Move(this.Board[source], this.Board[dest]);	// create the move object
 				MoveResult=m_Rules.DoMove(UserMove);
