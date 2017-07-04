@@ -24,7 +24,7 @@ namespace MagiciansChessAPI.Controllers
             if (gameXml == null)
                 return "WTF";
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(gameXml.Str.Replace('"', '\''));
+            doc.LoadXml(gameXml.Str);
             XmlNode gameXmlNode = doc.DocumentElement;
             ChessLibrary.Game g1 = new ChessLibrary.Game();
             g1.XmlDeserialize(gameXmlNode);
@@ -33,8 +33,10 @@ namespace MagiciansChessAPI.Controllers
             if (g1.BlackTurn())
                 p = g1.WhitePlayer;
             ChessLibrary.Move m = p.GetBestMove();
+
             string best_str = m.ToString2();
-            if (g1.DoMove("A6", "A5") == -1)
+            g1.NextPlayerTurn(); // need to do that because the player is opposite for some reason
+            if (g1.DoMove(best_str.Substring(best_str.Length - 5, 2), best_str.Substring(best_str.Length - 2, 2)) == -1)
                 return "bad move";
             return best_str;
             /*XmlDocument doc = new XmlDocument();

@@ -358,65 +358,49 @@ namespace ChessLibrary
 			return null;
 		}
 
-		// calculate the possible moves for the pawn object and insert them into passed array
-		private void GetPawnMoves(Cell source, ArrayList moves)
-		{
-			Cell newcell;
+        // calculate the possible moves for the pawn object and insert them into passed array
+        private void GetPawnMoves(Cell source, ArrayList moves)
+        {
+            Cell newcell;
 
-			if (source.piece.Side.isWhite())
-			{
-				// Calculate moves for the white piece
-				newcell = m_Board.TopCell(source);	
-				if (newcell!=null && newcell.IsEmpty()) // Top cell is available for the move
-					moves.Add(newcell);
-				
-				// Check the 2nd top element from source
-				if (newcell != null && newcell.IsEmpty())
-				{
-					newcell = m_Board.TopCell(newcell);	
-					if (newcell!=null && source.piece.Moves == 0 && newcell.IsEmpty()) // 2nd top cell is available and piece has not yet moved
-						moves.Add(newcell);
-				}
+            if (source.piece.Side.isBlack())
+            {
+                // Calculate moves for the black piece
+                newcell = m_Board.TopCell(source);
+                if (newcell != null && newcell.IsEmpty()) // Top cell is available for the move
+                    moves.Add(newcell);
 
-				// Check top-left cell for enemy piece
-				newcell = m_Board.TopLeftCell(source);	
-				if (newcell!=null && newcell.IsOwnedByEnemy(source)) // Top cell is available for the move
-					moves.Add(newcell);
+                // Check top-left cell for enemy piece
+                newcell = m_Board.TopLeftCell(source);
+                if (newcell != null && newcell.IsOwnedByEnemy(source)) // Top cell is available for the move
+                    moves.Add(newcell);
 
-				// Check top-right cell for enemy piece
-				newcell = m_Board.TopRightCell(source);	
-				if (newcell!=null && newcell.IsOwnedByEnemy(source)) // Top cell is available for the move
-					moves.Add(newcell);
-			}
-			else
-			{
-				// Calculate moves for the black piece
-				newcell = m_Board.BottomCell(source);	
-				if (newcell!=null && newcell.IsEmpty()) // bottom cell is available for the move
-					moves.Add(newcell);
-				
-				// Check the 2nd bottom cell from source
-				if (newcell!=null && newcell.IsEmpty())
-				{
-					newcell = m_Board.BottomCell(newcell);	
-					if (newcell!=null && source.piece.Moves == 0 && newcell.IsEmpty()) // 2nd bottom cell is available and piece has not yet moved
-						moves.Add(newcell);
-				}
+                // Check top-right cell for enemy piece
+                newcell = m_Board.TopRightCell(source);
+                if (newcell != null && newcell.IsOwnedByEnemy(source)) // Top cell is available for the move
+                    moves.Add(newcell);
+            }
+            else
+            {
+                // Calculate moves for the white piece
+                newcell = m_Board.BottomCell(source);
+                if (newcell != null && newcell.IsEmpty()) // bottom cell is available for the move
+                    moves.Add(newcell);
 
-				// Check bottom-left cell for enemy piece
-				newcell = m_Board.BottomLeftCell(source);	
-				if (newcell!=null && newcell.IsOwnedByEnemy(source)) // Bottom cell is available for the move
-					moves.Add(newcell);
+                // Check bottom-left cell for enemy piece
+                newcell = m_Board.BottomLeftCell(source);
+                if (newcell != null && newcell.IsOwnedByEnemy(source)) // Bottom cell is available for the move
+                    moves.Add(newcell);
 
-				// Check bottom-right cell for enemy piece
-				newcell = m_Board.BottomRightCell(source);	
-				if (newcell!=null && newcell.IsOwnedByEnemy(source)) // Bottom cell is available for the move
-					moves.Add(newcell);
-			}
-		}
+                // Check bottom-right cell for enemy piece
+                newcell = m_Board.BottomRightCell(source);
+                if (newcell != null && newcell.IsOwnedByEnemy(source)) // Bottom cell is available for the move
+                    moves.Add(newcell);
+            }
+        }
 
-		// calculate the possible moves for the knight piece and insert them into passed array
-		private void GetKnightMoves(Cell source, ArrayList moves)
+        // calculate the possible moves for the knight piece and insert them into passed array
+        private void GetKnightMoves(Cell source, ArrayList moves)
 		{
 			Cell newcell;
 

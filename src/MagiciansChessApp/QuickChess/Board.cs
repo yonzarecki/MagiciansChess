@@ -46,22 +46,22 @@ namespace ChessLibrary
 					m_cells.Add(new Cell(row,col));	// Initialize and add the new chess cell
 				}
 
-			// Now setup the board for white side
-			m_cells["a1"].piece = new Piece(Piece.PieceType.Rook,m_WhiteSide);
-			m_cells["b1"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
-			m_cells["c1"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
-			m_cells["d1"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
+            // Now setup the board for white side
+            m_cells["a1"].piece = new Piece(Piece.PieceType.Rook, m_WhiteSide);
+            m_cells["b1"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
+            m_cells["c1"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
+            m_cells["d1"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
             m_cells["d2"].piece = new Piece(Piece.PieceType.Pawn, m_WhiteSide);
 
 
 
             // Now setup the board for black side
-            m_cells["a5"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
-            m_cells["b5"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
-            m_cells["c5"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
-            m_cells["d5"].piece = new Piece(Piece.PieceType.Rook, m_WhiteSide);
-            m_cells["a4"].piece = new Piece(Piece.PieceType.Pawn, m_WhiteSide);
-		}
+            m_cells["a5"].piece = new Piece(Piece.PieceType.King, m_BlackSide);
+            m_cells["b5"].piece = new Piece(Piece.PieceType.Knight, m_BlackSide);
+            m_cells["c5"].piece = new Piece(Piece.PieceType.Bishop, m_BlackSide);
+            m_cells["d5"].piece = new Piece(Piece.PieceType.Rook, m_BlackSide);
+            m_cells["a4"].piece = new Piece(Piece.PieceType.Pawn, m_BlackSide);
+        }
 
         // get the new item by rew and column
         public Cell this[int row, int col]

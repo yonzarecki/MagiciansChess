@@ -65,7 +65,7 @@ namespace MagiciansChessApp
             base.OnNavigatedTo(e);
             if (!connected)
             {
-                //await App.bluetoothManager.Connect();
+                await App.bluetoothManager.Connect();
                 connected = true;
             }
         }

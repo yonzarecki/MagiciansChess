@@ -32,8 +32,6 @@ namespace MagiciansChessApp
         public MainMenu()
         {
             this.InitializeComponent();
-            connectionManager.Connect();
-
         }
    
         private void BtnGame_OnClick(object sender, RoutedEventArgs e)

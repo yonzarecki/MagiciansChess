@@ -363,20 +363,12 @@ namespace ChessLibrary
 		{
 			Cell newcell;
 
-			if (source.piece.Side.isWhite())
+			if (source.piece.Side.isBlack())
 			{
-				// Calculate moves for the white piece
+				// Calculate moves for the black piece
 				newcell = m_Board.TopCell(source);	
 				if (newcell!=null && newcell.IsEmpty()) // Top cell is available for the move
 					moves.Add(newcell);
-				
-				// Check the 2nd top element from source
-				if (newcell != null && newcell.IsEmpty())
-				{
-					newcell = m_Board.TopCell(newcell);	
-					if (newcell!=null && source.piece.Moves == 0 && newcell.IsEmpty()) // 2nd top cell is available and piece has not yet moved
-						moves.Add(newcell);
-				}
 
 				// Check top-left cell for enemy piece
 				newcell = m_Board.TopLeftCell(source);	
@@ -390,18 +382,10 @@ namespace ChessLibrary
 			}
 			else
 			{
-				// Calculate moves for the black piece
+				// Calculate moves for the white piece
 				newcell = m_Board.BottomCell(source);	
 				if (newcell!=null && newcell.IsEmpty()) // bottom cell is available for the move
-					moves.Add(newcell);
-				
-				// Check the 2nd bottom cell from source
-				if (newcell!=null && newcell.IsEmpty())
-				{
-					newcell = m_Board.BottomCell(newcell);	
-					if (newcell!=null && source.piece.Moves == 0 && newcell.IsEmpty()) // 2nd bottom cell is available and piece has not yet moved
-						moves.Add(newcell);
-				}
+					moves.Add(newcell);		
 
 				// Check bottom-left cell for enemy piece
 				newcell = m_Board.BottomLeftCell(source);	

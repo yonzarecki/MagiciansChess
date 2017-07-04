@@ -47,7 +47,7 @@ namespace ChessLibrary
 				}
 
 			// Now setup the board for white side
-			m_cells["a1"].piece = new Piece(Piece.PieceType.Rook,m_WhiteSide);
+			m_cells["a1"].piece = new Piece(Piece.PieceType.Rook, m_WhiteSide);
 			m_cells["b1"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
 			m_cells["c1"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
 			m_cells["d1"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
@@ -56,11 +56,11 @@ namespace ChessLibrary
 
 
             // Now setup the board for black side
-            m_cells["a5"].piece = new Piece(Piece.PieceType.King, m_WhiteSide);
-            m_cells["b5"].piece = new Piece(Piece.PieceType.Knight, m_WhiteSide);
-            m_cells["c5"].piece = new Piece(Piece.PieceType.Bishop, m_WhiteSide);
-            m_cells["d5"].piece = new Piece(Piece.PieceType.Rook, m_WhiteSide);
-            m_cells["a4"].piece = new Piece(Piece.PieceType.Pawn, m_WhiteSide);
+            m_cells["a5"].piece = new Piece(Piece.PieceType.King, m_BlackSide);
+            m_cells["b5"].piece = new Piece(Piece.PieceType.Knight, m_BlackSide);
+            m_cells["c5"].piece = new Piece(Piece.PieceType.Bishop, m_BlackSide);
+            m_cells["d5"].piece = new Piece(Piece.PieceType.Rook, m_BlackSide);
+            m_cells["a4"].piece = new Piece(Piece.PieceType.Pawn, m_BlackSide);
 		}
 
         // get the new item by rew and column
@@ -144,8 +144,6 @@ namespace ChessLibrary
 		// get all the cell containg pieces of given side
         public ArrayList GetSideCell(Side.SideType PlayerSide)
 		{
-            var s = this[1, 1].piece;
-
             ArrayList CellNames = new ArrayList();
 			// Loop all the squars and store them in Array List
 			for (int row=1; row<=5; row++)

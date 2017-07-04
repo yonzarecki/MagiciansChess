@@ -142,11 +142,11 @@ namespace MagiciansChessApp
             inputButton.Visibility = Visibility.Collapsed;
         }
 
-        private void DoneClick(object sender, RoutedEventArgs e)
+        private async void DoneClick(object sender, RoutedEventArgs e)
         {
             /*
              * the Do Move dosent work throws null exception nedd to look why */
-            if(currGame.DoMove(fromInput.Text,toInput.Text) == -1)
+            if(currGame.DoMove(fromInput.Text,toInput.Text) < 0)
             {
                 MessageDialog msg = new MessageDialog("Invalid Move! please enter again");
                 Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
@@ -156,18 +156,37 @@ namespace MagiciansChessApp
             //updated move in board and all is legal
             setComputerTurn();
             string move_str = ChessGameManager.GetBestMove(currGame);
+            if (move_str == "bad move")
+            {
+                MessageDialog msg = new MessageDialog("Bad Computer move! ");
+                Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+                return;
+            }
+
             bool pieceCaptured = false;
             if (move_str[move_str.Length - 3] == 'x')
                 pieceCaptured = true;
+
+            string from = move_str.Substring(move_str.Length - 5, 2);
+            string to = move_str.Substring(move_str.Length - 2, 2);
+
+            //TODO: sendmove to board
+            await ChessGameManager.sendMoveToBoard(from + to);
+
+            if (pieceCaptured)
+            {
+                MessageDialog msg = new MessageDialog("Please remove captured piece " + to);
+                Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+            }
+
             // execute computer move
-            if(currGame.DoMove(move_str.Substring(move_str.Length - 5, 2), move_str.Substring(move_str.Length - 2, 2)) == -1)
+            if (currGame.DoMove(from,to) == -1)
             {
                 MessageDialog msg = new MessageDialog("Computer Error !");
                 Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
                 return;
             }
 
-            //TODO: sendmove to board
             setHumanTurn();
         }
 

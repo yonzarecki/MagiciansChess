@@ -131,10 +131,13 @@ namespace MagiciansChessApp
                 ChessLibrary.Game g1 = new ChessLibrary.Game();
                 g1.XmlDeserialize(gameXmlNode);
 
-                ChessLibrary.Move m = g1.ActivePlay.GetBestMove();
+                ChessLibrary.Player p = g1.BlackPlayer;
+                if (g1.BlackTurn())
+                    p = g1.WhitePlayer;
+                ChessLibrary.Move m = p.GetBestMove();
                 string best_str = m.ToString();
 
-
+                
                 string m_str = ChessAIExtensions.PostByGamexmlAndTimelimitinsecs(new ChessAI(client),
                     new Models.StringAux(gameXml), 5);
                 return m_str;
@@ -142,7 +145,7 @@ namespace MagiciansChessApp
 
         }
 
-        public static async void sendMoveToBoard(String move)
+        public static async Task sendMoveToBoard(String move)
         {
             await App.bluetoothManager.Send(move);
         }
