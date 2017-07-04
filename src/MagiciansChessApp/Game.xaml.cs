@@ -171,21 +171,32 @@ namespace MagiciansChessApp
             string to = move_str.Substring(move_str.Length - 2, 2);
 
             //TODO: sendmove to board
-            await ChessGameManager.sendMoveToBoard(from + to);
-
-            if (pieceCaptured)
-            {
-                MessageDialog msg = new MessageDialog("Please remove captured piece " + to);
-                Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
-            }
+            ChessGameManager.sendMoveToBoard(from + to+to[1]);
 
             // execute computer move
-            if (currGame.DoMove(from,to) == -1)
+            if (currGame.DoMove(from, to) == -1)
             {
                 MessageDialog msg = new MessageDialog("Computer Error !");
                 Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
                 return;
             }
+
+            string msg_str = "Computer Move: " + move_str;
+            if (currGame.IsUnderCheck())
+                msg_str += "\n" + "Check !";
+            if (pieceCaptured)
+                msg_str += "\n" + "Please remove captured piece " + to;
+            
+
+            Utils.Show(new MessageDialog(msg_str), new List<UICommand> { new UICommand("Close") });
+
+            if (currGame.IsCheckMate(currGame.ActivePlay.PlayerSide.type))
+            {
+                Utils.Show(new MessageDialog("Checkmate ! The computer won !"), new List<UICommand> { new UICommand("Close") });
+                return;
+            }
+
+            
 
             setHumanTurn();
         }
