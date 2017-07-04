@@ -20,24 +20,20 @@ namespace MagiciansChessAPI
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='username'>
-            /// </param>
-            public static IList<LeaderboardEntry> Get(this ILeaderboardEntryOperations operations, string username)
+            public static IList<LeaderboardEntry> Get(this ILeaderboardEntryOperations operations)
             {
-                return Task.Factory.StartNew(s => ((ILeaderboardEntryOperations)s).GetAsync(username), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
+                return Task.Factory.StartNew(s => ((ILeaderboardEntryOperations)s).GetAsync(), operations, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).Unwrap().GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='username'>
-            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<LeaderboardEntry>> GetAsync(this ILeaderboardEntryOperations operations, string username, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<LeaderboardEntry>> GetAsync(this ILeaderboardEntryOperations operations, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(username, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

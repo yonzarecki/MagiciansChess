@@ -39,7 +39,6 @@ namespace MagiciansChessDataAPI.Controllers
     [HttpOperationExceptionFilterAttribute]
     public class LeaderboardController : ApiController
     {
-        private string username = "*";
 
         private static MagiciansChessAPI.MagiciansChessDataAPI NewDataAPIClient()
         {
@@ -57,7 +56,7 @@ namespace MagiciansChessDataAPI.Controllers
         {
             using (var client = NewDataAPIClient())
             {
-                var results = await client.LeaderboardEntryOperations.GetWithHttpMessagesAsync(username);
+                var results = await client.LeaderboardEntryOperations.GetWithHttpMessagesAsync();
                 return results.Body.Select(m => new LeaderboardEntry
                 {
                     GameTime = m.GameTime,

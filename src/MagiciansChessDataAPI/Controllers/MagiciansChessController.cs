@@ -37,11 +37,11 @@ namespace MagiciansChessDataAPI.Controllers
         }
 
         // GET: api/ToDoItemList
-        public IEnumerable<LeaderboardEntry> Get(string username)
+        public IEnumerable<LeaderboardEntry> Get()
         {
             CheckCallerId();
 
-            return mockData.Values.Where(m => m.username == username || username == "*");
+            return mockData.Values.ToList();
         }
 
         // GET: api/ToDoItemList/5

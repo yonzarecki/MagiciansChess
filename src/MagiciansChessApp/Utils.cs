@@ -79,11 +79,17 @@ namespace MagiciansChessApp
                 rootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
-        public static async Task<int> AddTimeLimitedGameAsync(string name, DateTime date, int playerScore, int robotScore)
+        public static async Task<int> AdddGameEntryAsync(string name, bool humanWon, string gameTime)
         {
-            // TODO change
-            var a = 5*5;
-            return a;
+            using (var client = Utils.NewAPIClient())
+            {
+                Leaderboard l = new Leaderboard(client);
+                LeaderboardExtensions.PostLeaderboardEntryByEntry(l, new Models.LeaderboardEntry(null, name, humanWon, gameTime)
+                    );
+                // TODO change
+                var a = 5 * 5;
+                return a;
+            }
         }
 
         public static MagiciansChessAPI NewAPIClient()

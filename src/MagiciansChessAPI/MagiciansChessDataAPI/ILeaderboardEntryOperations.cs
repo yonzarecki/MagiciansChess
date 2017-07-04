@@ -17,15 +17,13 @@ namespace MagiciansChessAPI
     /// </summary>
     public partial interface ILeaderboardEntryOperations
     {
-        /// <param name='username'>
-        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetWithHttpMessagesAsync(string username, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<LeaderboardEntry>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <param name='entry'>
         /// </param>
         /// <param name='customHeaders'>

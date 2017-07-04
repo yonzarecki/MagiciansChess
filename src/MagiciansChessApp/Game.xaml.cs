@@ -28,7 +28,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace MagiciansChessApp
 {
-    
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -36,7 +36,9 @@ namespace MagiciansChessApp
     {
         private TimeSpan second = TimeSpan.Zero;
         private ChessLibrary.Game currGame;
-        
+        private string username;
+        private bool humanWon = false;
+
         private string showTime()
         {
             return TimeSpaner.ToString().Substring(3); // format is MM:SS
@@ -44,19 +46,19 @@ namespace MagiciansChessApp
 
         private void stopTimer()
         {
-            if (Timer.IsEnabled && TimeSpaner != TimeSpan.Zero) {Timer.Stop();}
+            if (Timer.IsEnabled && TimeSpaner != TimeSpan.Zero) { Timer.Stop(); }
         }
 
         private void resumeTimer()
         {
-            if(!Timer.IsEnabled && TimeSpaner != TimeSpan.Zero) { Timer.Start();}
+            if (!Timer.IsEnabled && TimeSpaner != TimeSpan.Zero) { Timer.Start(); }
         }
 
         private void DispatcherTimer_Tick(object sender, object eo)
         {
-            
+
             second += TimeSpan.FromMilliseconds(10);
-            if(second < TimeSpan.FromMilliseconds(400))
+            if (second < TimeSpan.FromMilliseconds(400))
             {
                 return;
             }
@@ -70,13 +72,13 @@ namespace MagiciansChessApp
 
         private void UpdateScore(bool UserScored)
         {
-            
+
         }
 
         private void Popup_OK_Invoked(IUICommand command)
         {
             //TODO: Insert new score to the DB
-            
+
         }
 
         private void stopGame(bool navigation)  // TODO: change to our game
@@ -93,7 +95,7 @@ namespace MagiciansChessApp
 
             }
         }
-       
+
 
         private TimeSpan TimeSpaner { get; set; }
         public DateTime EndTime { get; set; }
@@ -136,7 +138,7 @@ namespace MagiciansChessApp
 
         private void setComputerTurn()
         {
-            InputTextBlock.Text = "Computer is making a move";
+            InputTextBlock.Text = "Computer is making a move...";
             fromInput.Visibility = Visibility.Collapsed;
             toInput.Visibility = Visibility.Collapsed;
             inputButton.Visibility = Visibility.Collapsed;
@@ -144,15 +146,13 @@ namespace MagiciansChessApp
 
         private async void DoneClick(object sender, RoutedEventArgs e)
         {
-            /*
-             * the Do Move dosent work throws null exception nedd to look why */
-            if(currGame.DoMove(fromInput.Text,toInput.Text) < 0)
+            if (currGame.DoMove(fromInput.Text, toInput.Text) < 0)
             {
-                MessageDialog msg = new MessageDialog("Invalid Move! please enter again");
+                MessageDialog msg = new MessageDialog("Invalid Move! please try again");
                 Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
                 return;
             }
-            
+
             //updated move in board and all is legal
             setComputerTurn();
             string move_str = ChessGameManager.GetBestMove(currGame);
@@ -160,44 +160,51 @@ namespace MagiciansChessApp
             {
                 MessageDialog msg = new MessageDialog("Bad Computer move! ");
                 Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+                Frame.Navigate(typeof(MainMenu));
                 return;
             }
 
-            bool pieceCaptured = false;
-            if (move_str[move_str.Length - 3] == 'x')
-                pieceCaptured = true;
+            // player have won
+            if (currGame.IsCheckMate(currGame.ActivePlay.PlayerSide.type))
+            {
+                Timer.Stop();
+                this.humanWon = true;
+                InputTextBlock.Text = "You have won the match ! Congratulations ! \n Exit by clicking the surrender button";
+                Utils.Show(new MessageDialog("Checkmate ! You won !"), new List<UICommand> { new UICommand("Close") });
+                return;
+            }
 
             string from = move_str.Substring(move_str.Length - 5, 2);
             string to = move_str.Substring(move_str.Length - 2, 2);
 
-            //TODO: sendmove to board
-            ChessGameManager.sendMoveToBoard(from + to+to[1]);
+            //send move to board
+            ChessGameManager.sendMoveToBoard(from + to + to[1]);
 
             // execute computer move
             if (currGame.DoMove(from, to) == -1)
             {
-                MessageDialog msg = new MessageDialog("Computer Error !");
-                Utils.Show(msg, new List<UICommand> { new UICommand("Close") });
+                Utils.Show(new MessageDialog("Computer move illegal !"), new List<UICommand> { new UICommand("Close") });
+                Frame.Navigate(typeof(MainMenu));
                 return;
             }
 
             string msg_str = "Computer Move: " + move_str;
             if (currGame.IsUnderCheck())
                 msg_str += "\n" + "Check !";
-            if (pieceCaptured)
+            if (move_str[move_str.Length - 3] == 'x')
                 msg_str += "\n" + "Please remove captured piece " + to;
-            
+
 
             Utils.Show(new MessageDialog(msg_str), new List<UICommand> { new UICommand("Close") });
-
+            // computer have won
             if (currGame.IsCheckMate(currGame.ActivePlay.PlayerSide.type))
             {
+                Timer.Stop();
+                InputTextBlock.Text = "The computer have won the match ! \n Exit by clicking the surrender button";
                 Utils.Show(new MessageDialog("Checkmate ! The computer won !"), new List<UICommand> { new UICommand("Close") });
                 return;
             }
-
-            
-
+            // set the turn back to the user
             setHumanTurn();
         }
 
@@ -205,6 +212,8 @@ namespace MagiciansChessApp
         {
             this.InitializeComponent();
             this.currGame = ChessGameManager.initializeGame();
+            Session sess = e.Parameter as Session;
+            this.username = sess.PlayerName;
 
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
             Timer = new DispatcherTimer();
@@ -214,7 +223,7 @@ namespace MagiciansChessApp
 
             tb_Timer.Text = showTime();
             Timer.Start();
-            
+
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -225,7 +234,7 @@ namespace MagiciansChessApp
 
         private void SurrenderButton_Click(object sender, RoutedEventArgs e)
         {
-            stopGame(true);
+            Utils.AdddGameEntryAsync(Name, this.humanWon, tb_Timer.Text);
             Frame.Navigate(typeof(MainMenu));
         }
     }
